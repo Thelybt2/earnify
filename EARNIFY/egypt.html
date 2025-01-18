@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: gold;
+}
+
+header {
+    background-color: black;
+    border-bottom: 2px solid red;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    height: 50px;
+}
+
+header .balance {
+    font-size: 18px;
+    color: gold;
+}
+header .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        header .buttons button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+
+        header .buttons button:hover {
+            background-color: red;
+            color: white;
+        }
+main {
+    padding: 20px;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+}
+
+.offers-section {
+    margin-top: 20px;
+}
+
+.offer {
+    background-color: #1a1a1a;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.offer h3 {
+    margin: 0 0 10px 0;
+    color: red;
+}
+
+.offer p {
+    margin: 0 0 10px 0;
+}
+
+.offer button {
+    background-color: black;
+    color: gold;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.offer button:hover {
+    background-color: red;
+    color: white;
+}
+
+.video-section {
+    margin-top: 30px;
+}
+
+.video-container {
+    background-color: #1a1a1a;
+    border: 2px solid red;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.video-container video {
+    width: 100%;
+    max-width: 600px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: black;
+    border-top: 2px solid red;
+    text-align: center;
+    padding: 10px 20px;
+    color: gold;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header>
+<img src="logo.png" alt="Earnify Logo">
+<div class="balance">Balance: $0.00</div>
+<div class="buttons">
+    <button onclick="window.location.href='withdraw.html'">Withdraw</button>
+    <button onclick="window.location.href='account_settings.html'">Settings</button>
+</div>
+</header>
+    
+<h1>Welcome,Egypt user!</h1>
+
+<!-- Offers Section -->
+<div class="offers-section">
+    <h2>Available Offers</h2>
+
+    <!-- Offer 1 -->
+    <div class="offer">
+        <h3> قم بتنزيل أحدث الألعاب!
+            أدخل رقم هاتفك المحمول الآن لبدء التنزيل.
+            </h3>
+        <p>Android Pin-Submit.</p>
+        <p><strong>Payout:</strong> $5.42</p>
+        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=66839')">Start Now</button>
+    </div>
+
+    <!-- Offer 2 -->
+    <div class="offer">
+        <h3>Install and use the Alibaba.com App!</h3>
+        <p>Install and use the app.</p>
+        <p><strong>Payout:</strong> $1.07</p>
+        <button onclick="startOffer('https://installyourfiles.com/show.php?l=0&u=1014967&id=65940')">Start Now</button>
+    </div>
+
+    <!-- Offer 3 -->
+    <div class="offer">
+        <h3>Get the best Dunkin Donuts Samples!</h3>
+        <p>Enter your information now to get started.</p>
+        <p><strong>Payout:</strong> $2.06</p>
+        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=67269')">Start Now</button>
+    </div>
+</div>
+</main>
+
+<!-- Footer -->
+<footer>
+<p>© 2024 Earnify. All rights reserved.</p>
+</footer>
+
+<!-- Scripts -->
+<script>
+// Redirect to offer link
+function startOffer(link) {
+    window.open(link, '_blank');
+}
+
+// Video Timer Logic
+let watchedTime = 0;
+let earnings = 0;
+
+function startVideoTimer() {
+    const video = document.getElementById('rewardVideo');
+    const timerDisplay = document.getElementById('timer');
+    const earnedDisplay = document.getElementById('earned');
+
+    const timer = setInterval(() => {
+        if (!video.paused) {
+            watchedTime += 1;
+            timerDisplay.innerText = Watched Time: ${watchedTime} seconds;
+
+            // Earn $0.10 for every 5 seconds watched
+            if (watchedTime % 5 === 0) {
+                earnings += 0.1;
+                earnedDisplay.innerText = Earnings: $${earnings.toFixed(2)};
+            }
+        }
+
+        // Stop timer when video ends
+        if (video.ended) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
