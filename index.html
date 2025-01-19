@@ -1,0 +1,167 @@
+
+You sent
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnify - Register or Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #222;
+            border: 2px solid red;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .container h1 {
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        .container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid gold;
+            border-radius: 10px;
+            background-color: black;
+            color: gold;
+        }
+
+        .container button {
+            background-color: red;
+            color: gold;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .container button:hover {
+            background-color: darkred;
+        }
+
+        .container a {
+            color: gold;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="auth-container">
+        <h1 id="auth-title">Register</h1>
+        <form id="auth-form">
+            <div id="register-fields">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+            </div>
+            <div id="login-fields" style="display: none;">
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" id="auth-button">Register</button>
+        </form>
+        <a href="#" id="toggle-auth">Already have an account? Login</a>
+    </div>
+
+    <script>
+        // Simulated user database
+        const users = [];
+
+        // DOM elements
+        const authContainer = document.getElementById("auth-container");
+        const authTitle = document.getElementById("auth-title");
+        const authForm = document.getElementById("auth-form");
+        const authButton = document.getElementById("auth-button");
+        const toggleAuth = document.getElementById("toggle-auth");
+        const registerFields = document.getElementById("register-fields");
+        const loginFields = document.getElementById("login-fields");
+
+        let isRegistering = true; // Toggle between registration and login
+
+        toggleAuth.addEventListener("click", (e) => {
+            e.preventDefault();
+            isRegistering = !isRegistering;
+
+            if (isRegistering) {
+                authTitle.textContent = "Register";
+                authButton.textContent = "Register";
+                toggleAuth.textContent = "Already have an account? Login";
+                registerFields.style.display = "block";
+                loginFields.style.display = "none";
+            } else {
+                authTitle.textContent = "Login";
+                authButton.textContent = "Login";
+                toggleAuth.textContent = "Don't have an account? Register";
+                registerFields.style.display = "none";
+                loginFields.style.display = "block";
+            }
+        });
+
+        authForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            if (isRegistering) {
+                // Handle Registration
+                const username = document.getElementById("username").value;
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm-password").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                }
+
+                // Save user
+                users.push({ username, email, password });
+                alert("Registration successful! Please login.");
+                toggleAuth.click(); // Switch to login
+            } else {
+                // Handle Login
+                const email = document.getElementById("login-email").value;
+                const password = document.getElementById("login-password").value;
+
+                const user = users.find((u) => u.email === email && u.password === password);
+
+                if (user) {
+                    alert(Welcome back, ${user.username}! Redirecting to country selection...);
+                    window.location.href = "countries.html"; // Redirect to country selection
+                } else {
+                    alert("Invalid email or password!");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
