@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: gold;
+}
+
+header {
+    background-color: black;
+    border-bottom: 2px solid red;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    height: 50px;
+}
+
+header .balance {
+    font-size: 18px;
+    color: gold;
+}
+header .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        header .buttons button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+
+        header .buttons button:hover {
+            background-color: red;
+            color: white;
+        }
+main {
+    padding: 20px;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+}
+
+.offers-section {
+    margin-top: 20px;
+}
+
+.offer {
+    background-color: #1a1a1a;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.offer h3 {
+    margin: 0 0 10px 0;
+    color: red;
+}
+
+.offer p {
+    margin: 0 0 10px 0;
+}
+
+.offer button {
+    background-color: black;
+    color: gold;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.offer button:hover {
+    background-color: red;
+    color: white;
+}
+
+.video-section {
+    margin-top: 30px;
+}
+
+.video-container {
+    background-color: #1a1a1a;
+    border: 2px solid red;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.video-container video {
+    width: 100%;
+    max-width: 600px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: black;
+    border-top: 2px solid red;
+    text-align: center;
+    padding: 10px 20px;
+    color: gold;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header>
+<img src="logo.png" alt="Earnify Logo">
+<div class="balance">Balance: $0.00</div>
+<div class="buttons">
+    <button onclick="window.location.href='withdraw.html'">Withdraw</button>
+    <button onclick="window.location.href='account_settings.html'">Settings</button>
+</div>
+</header>
+
+<!-- Main Content -->
+<main>
+<h1>Welcome,India User!</h1>
+
+<!-- Offers Section -->
+<div class="offers-section">
+    <h2>Available Offers</h2>
+
+    <!-- Offer 1 -->
+    <div class="offer">
+        <h3> अपना सैमसंग गैलेक्सी A53 अभी प्राप्त करें!
+            जीतने का मौका पाने के लिए अभी अपनी जानकारी दर्ज करें।           
+            </h3>
+        <p> Android Email/Zip Submit.</p>
+        <p><strong>Payout:</strong> $3.42</p>
+        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=58609')">Start Now</button>
+    </div>
+
+    <!-- Offer 2 -->
+    <div class="offer">
+        <h3>Kunyakua iPhone yako 15 Pro Sasa!
+            Weka maelezo yako sasa ili upate nafasi ya kushinda            
+            </h3>
+        <p> Android Email/Zip Submit</p>
+        <p><strong>Payout:</strong> $2.07</p>
+        <button onclick="startOffer('https://tundrafile.com/show.php?l=0&u=1014967&id=61324')">Start Now</button>
+    </div>
+
+    <!-- Offer 3 -->
+    <div class="offer">
+        <h3>Ingiza kwa Samsung A53!
+            Weka maelezo yako sasa ili upate nafasi ya kushinda.            
+            </h3>
+        <p>  Android Email/Zip Submit</p>
+        <p><strong>Payout:</strong> $4.06</p>
+        <button onclick="startOffer('https://ridefiles.net/show.php?l=0&u=1014967&id=56781')">Start Now</button>
+    </div>
+</div>
+</main>
+
+<!-- Footer -->
+<footer>
+<p>© 2024 Earnify. All rights reserved.</p>
+</footer>
+
+<!-- Scripts -->
+<script>
+// Redirect to offer link
+function startOffer(link) {
+    window.open(link, '_blank');
+}
+
+// Video Timer Logic
+let watchedTime = 0;
+let earnings = 0;
+
+function startVideoTimer() {
+    const video = document.getElementById('rewardVideo');
+    const timerDisplay = document.getElementById('timer');
+    const earnedDisplay = document.getElementById('earned');
+
+    const timer = setInterval(() => {
+        if (!video.paused) {
+            watchedTime += 1;
+            timerDisplay.innerText = Watched Time: ${watchedTime} seconds;
+
+            // Earn $0.10 for every 5 seconds watched
+            if (watchedTime % 5 === 0) {
+                earnings += 0.1;
+                earnedDisplay.innerText = Earnings: $${earnings.toFixed(2)};
+            }
+        }
+
+        // Stop timer when video ends
+        if (video.ended) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>

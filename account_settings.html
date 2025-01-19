@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gold;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: black;
+            border-bottom: 2px solid red;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        header h1 {
+            color: gold;
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            color: red;
+            text-align: center;
+        }
+
+        form {
+            background-color: #1a1a1a;
+            border: 2px solid red;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            color: gold;
+        }
+
+        form input, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid gold;
+            border-radius: 5px;
+            background-color: black;
+            color: gold;
+        }
+
+        form input:focus {
+            border-color: red;
+            outline: none;
+        }
+
+        form button {
+            background-color: black;
+            border: 2px solid red;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: red;
+            color: white;
+        }
+
+        footer {
+            background-color: black;
+            border-top: 2px solid red;
+            color: gold;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Account Settings</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h2>Update Your Account Information</h2>
+
+        <!-- Password Update Form -->
+        <form action="update_password.php" method="POST">
+            <h3>Change Password</h3>
+            <label for="old-password">Old Password:</label>
+            <input type="password" id="old-password" name="old_password" placeholder="Enter your old password" required>
+
+            <label for="new-password">New Password:</label>
+            <input type="password" id="new-password" name="new_password" placeholder="Enter a new password" required>
+
+            <label for="confirm-password">Confirm New Password:</label>
+            <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your new password" required>
+
+            <button type="submit">Update Password</button>
+        </form>
+
+        <!-- Update Email Form -->
+        <form action="update_email.php" method="POST">
+            <h3>Update Email</h3>
+            <label for="email">New Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your new email" required>
+
+            <button type="submit">Update Email</button>
+        </form>
+
+        <!-- Update Profile Information -->
+        <form action="update_profile.php" method="POST">
+            <h3>Update Profile</h3>
+            <label for="username">Update Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your new username" required>
+
+            <label for="phone">Update Phone Number:</label>
+            <input type="text" id="phone" name="phone" placeholder="Enter your new phone number" required>
+
+            <button type="submit">Update Profile</button>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Earnify. All rights reserved.</p>
+    </footer>
+</body>
+</html>

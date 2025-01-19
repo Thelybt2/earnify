@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnify - Earn Easy</title>
+    <style>
+        /* Add temporary styling for visualization */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gold;
+        }
+
+        header {
+            background-color: black;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid red;
+        }
+
+        header img {
+            max-height: 60px;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: red;
+            font-size: 24px;
+        }
+
+        .country-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .country-buttons button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .country-buttons button:disabled {
+            background-color: gray;
+            color: white;
+            cursor: not-allowed;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <img src="logo.png" alt="Earnify Logo">
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Welcome to Earnify</h1>
+        <p>Select your country to start earning:</p>
+
+        <!-- Country Buttons -->
+        <div class="country-buttons">
+            <button onclick="redirectToCountry('egypt')">Egypt</button>
+            <button onclick="redirectToCountry('france')">France</button>
+            <button onclick="redirectToCountry('india')">India</button>
+            <button onclick="redirectToCountry('kenya')">Kenya</button>
+            <button onclick="redirectToCountry('nigeria')">Nigeria</button>
+            <button onclick="redirectToCountry('south_africa')">South Africa</button>
+            <button onclick="redirectToCountry('spain')">Spain</button>
+            <button onclick="redirectToCountry('united_states')">United States</button>
+        </div>
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="footer.jpg" alt="Promotional Image" style="max-width: 100%; height: auto; border: 2px solid red; border-radius: 15px;">
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer style="background-color: #000; color: #FFD700; padding: 20px; text-align: center;">
+        <div style="max-width: 1200px; margin: auto;">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <div style="flex: 1; margin: 10px;">
+              <h4 style="color: #FFD700;">About Us</h4>
+              <p style="color: #FFD700;">Learn the best strategies, tips, and resources to maximize your earnings online. Join us on the journey to financial freedom!</p>
+            </div>
+            <div style="flex: 1; margin: 10px;">
+              <h4 style="color: #FFD700;">Quick Links</h4>
+              <ul style="list-style: none; padding: 0;">
+                <li><a href="/blog" style="color: #FF0000; text-decoration: none;">Blog</a></li>
+                <li><a href="/courses" style="color: #FF0000; text-decoration: none;">Courses</a></li>
+                <li><a href="/tools" style="color: #FF0000; text-decoration: none;">Tools</a></li>
+                <li><a href="/contact" style="color: #FF0000; text-decoration: none;">Contact Us</a></li>
+              </ul>
+            </div>
+            <div style="flex: 1; margin: 10px;">
+              <h4 style="color: #FFD700;">Follow Us</h4>
+              <p style="color: #FFD700;">Stay updated on the latest earning trends:</p>
+              <a href="#" style="color: #FF0000; text-decoration: none; margin: 0 10px;">Facebook</a>
+              <a href="#" style="color: #FF0000; text-decoration: none; margin: 0 10px;">Twitter</a>
+              <a href="#" style="color: #FF0000; text-decoration: none; margin: 0 10px;">Instagram</a>
+            </div>
+          </div>
+          <div style="margin-top: 20px; border-top: 1px solid #FFD700; padding-top: 10px;">
+            <p style="color: #FFD700;">&copy; 2022 Earnify. All Rights Reserved.</p>
+            <p>
+              <a href="/privacy" style="color: #FF0000; text-decoration: none;">Privacy Policy</a> | 
+              <a href="/terms" style="color: #FF0000; text-decoration: none;">Terms of Service</a>
+            </p>
+          </div>
+        </div>
+      </footer>
+      
+
+    <!-- Script -->
+    <script>
+        function redirectToCountry(country) {
+            // Replace with dynamic checks for country access
+            const allowedCountries = ['egypt', 'france', 'india', 'kenya', 'nigeria', 'south_africa', 'spain', 'united_states'];
+            if (allowedCountries.includes(country)) {
+                window.location.href = country + ".html";
+            } else {
+                alert("Access denied. This section is restricted to residents of " + country + ".");
+            }
+        }
+    </script>
+</body>
+</html>
