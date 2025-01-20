@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,27 +35,28 @@
         h1 {
             color: red;
             text-align: center;
-            margin-top: 20px;
+            margin: 20px 0;
         }
 
-        .withdraw-form {
+        .container {
             max-width: 600px;
             margin: 30px auto;
             padding: 20px;
             background-color: #1a1a1a;
             border: 2px solid red;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
-        .withdraw-form label {
+        .container label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
         }
 
-        .withdraw-form input,
-        .withdraw-form select,
-        .withdraw-form button {
+        .container input,
+        .container select,
+        .container button {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -65,43 +67,90 @@
             font-size: 16px;
         }
 
-        .withdraw-form button {
+        .container button {
             cursor: pointer;
-        }
-
-        .withdraw-form button:hover {
             background-color: red;
             color: white;
+            font-weight: bold;
+        }
+
+        .container button:hover {
+            background-color: gold;
+            color: black;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        .referral-status {
+            margin-bottom: 20px;
+            text-align: center;
         }
     </style>
     <script>
-        function updateDetailsField() {
-            const method = document.getElementById("method").value;
-            const detailsField = document.getElementById("details-field");
-            const detailsLabel = document.getElementById("details-label");
+        document.addEventListener("DOMContentLoaded", function () {
+            const referralCount = 0; // Simulate referral count (replace with actual server data)
+            const referralRequired = 5;
+            const referralLink = `https://thelybt2.github.io/earnify/?referral=12345`; // Replace with dynamic user ID
 
-            if (method === "paypal") {
-                detailsLabel.innerText = "Enter your PayPal email:";
-                detailsField.placeholder = "Your PayPal email";
-                detailsField.type = "email";
-                detailsField.required = true;
-                detailsField.style.display = "block";
-            } else if (method === "payoneer") {
-                detailsLabel.innerText = "Enter your Payoneer email:";
-                detailsField.placeholder = "Your Payoneer email";
-                detailsField.type = "email";
-                detailsField.required = true;
-                detailsField.style.display = "block";
-            } else if (method === "bitcoin") {
-                detailsLabel.innerText = "Enter your Bitcoin wallet address:";
-                detailsField.placeholder = "Your Bitcoin wallet address";
-                detailsField.type = "text";
-                detailsField.required = true;
-                detailsField.style.display = "block";
+            // Referral Info
+            const referralDisplay = document.getElementById("referral-count");
+            const errorMessage = document.getElementById("error-message");
+            const withdrawForm = document.getElementById("withdraw-form");
+            const referralInput = document.getElementById("referral-link");
+
+            // Set Referral Link
+            referralInput.value = referralLink;
+
+            referralDisplay.innerText = referralCount;
+
+            if (referralCount < referralRequired) {
+                errorMessage.innerText = `You need at least ${referralRequired} referrals to make a withdrawal.`;
+                withdrawForm.style.display = "none";
             } else {
-                detailsField.style.display = "none";
+                errorMessage.innerText = "";
+                withdrawForm.style.display = "block";
             }
-        }
+
+            // Copy Referral Link
+            document.getElementById("copy-link").addEventListener("click", function () {
+                referralInput.select();
+                referralInput.setSelectionRange(0, 99999); // For mobile devices
+                navigator.clipboard.writeText(referralInput.value);
+                alert("Referral link copied to clipboard!");
+            });
+
+            // Handle withdrawal method changes
+            document.getElementById("method").addEventListener("change", function () {
+                const method = this.value;
+                const detailsField = document.getElementById("details-field");
+                const detailsLabel = document.getElementById("details-label");
+
+                if (method === "paypal") {
+                    detailsLabel.innerText = "Enter your PayPal email:";
+                    detailsField.placeholder = "Your PayPal email";
+                    detailsField.type = "email";
+                } else if (method === "payoneer") {
+                    detailsLabel.innerText = "Enter your Payoneer email:";
+                    detailsField.placeholder = "Your Payoneer email";
+                    detailsField.type = "email";
+                } else if (method === "bitcoin") {
+                    detailsLabel.innerText = "Enter your Bitcoin wallet address:";
+                    detailsField.placeholder = "Your Bitcoin wallet address";
+                    detailsField.type = "text";
+                } else {
+                    detailsLabel.innerText = "";
+                    detailsField.type = "text";
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -109,26 +158,43 @@
     <img src="logo.png" alt="Earnify Logo">
     <div class="user-info">Welcome</div>
 </header>
+
 <h1>Withdraw Funds</h1>
-<div class="withdraw-form">
-    <form action="process_withdraw.php" method="POST">
+
+<div class="container">
+    <!-- Referral Info -->
+    <div class="referral-status">
+        <h2>Your Referral Status</h2>
+        <p><strong>Referrals Required for Withdrawal:</strong> 5</p>
+        <p><strong>Current Referrals:</strong> <span id="referral-count">0</span></p>
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <!-- Referral Link Section -->
+    <div class="referral-link">
+        <h2>Your Referral Link</h2>
+        <input type="text" id="referral-link" readonly>
+        <button id="copy-link">Copy</button>
+    </div>
+
+    <!-- Withdrawal Form -->
+    <form id="withdraw-form" action="process_withdraw.php" method="POST" style="display: none;">
         <label for="amount">Enter Amount:</label>
         <input type="number" id="amount" name="amount" min="25" placeholder="Minimum $25" required>
-        
+
         <label for="method">Choose Withdrawal Method:</label>
-        <select id="method" name="method" onchange="updateDetailsField()" required>
+        <select id="method" name="method" required>
             <option value="" disabled selected>Select a method</option>
             <option value="paypal">PayPal</option>
             <option value="payoneer">Payoneer</option>
             <option value="bitcoin">Bitcoin</option>
         </select>
 
-        <label id="details-label" style="display: none;"></label>
-        <input id="details-field" name="details" style="display: none;" />
+        <label id="details-label" for="details"></label>
+        <input id="details-field" name="details" placeholder="Enter your details here" required>
 
         <button type="submit">Submit Withdrawal</button>
     </form>
 </div>
 </body>
 </html>
-
