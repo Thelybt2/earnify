@@ -93,7 +93,7 @@
 
     <script>
         // Simulated user database
-        const users = [];
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
         // DOM elements
         const authContainer = document.getElementById("auth-container");
@@ -104,14 +104,11 @@
         const registerFields = document.getElementById("register-fields");
         const loginFields = document.getElementById("login-fields");
 
-        let isRegistering = true; // Toggle between registration and login
+        // Determine if the user is in the registration or login state
+        let isRegistering = localStorage.getItem("isRegistering") !== "false"; 
 
-        // Check localStorage for registration status
-        const userRegistered = localStorage.getItem("userRegistered");
-
-        if (userRegistered === "true") {
-            // User is already registered, show login form
-            isRegistering = false;
+        // Check localStorage for registration state
+        if (!isRegistering) {
             authTitle.textContent = "Login";
             authButton.textContent = "Login";
             toggleAuth.textContent = "Don't have an account? Register";
@@ -122,6 +119,7 @@
         toggleAuth.addEventListener("click", (e) => {
             e.preventDefault();
             isRegistering = !isRegistering;
+            localStorage.setItem("isRegistering", isRegistering);
 
             if (isRegistering) {
                 authTitle.textContent = "Register";
@@ -139,7 +137,7 @@
         });
 
         authForm.addEventListener("submit", (e) => {
-            e.preventDefault(); // Prevents the form from submitting and refreshing the page
+            e.preventDefault(); // Prevent form from submitting and page reload
 
             if (isRegistering) {
                 // Handle Registration
@@ -153,9 +151,9 @@
                     return;
                 }
 
-                // Save user (In a real scenario, this would involve a backend)
+                // Save user data in localStorage (In a real scenario, this would involve a backend)
                 users.push({ username, email, password });
-                localStorage.setItem("userRegistered", "true"); // Mark the user as registered
+                localStorage.setItem("users", JSON.stringify(users)); // Store updated user data
                 alert("Registration successful! Please login.");
 
                 // Switch to login form
@@ -169,14 +167,16 @@
 
                 if (user) {
                     alert(`Welcome back, ${user.username}! Redirecting to country selection...`);
+                    localStorage.setItem("userLoggedIn", "true"); // Flag user as logged in
                     window.location.href = "countries.html"; // Redirect to country selection page
                 } else {
                     alert("Invalid email or password!");
                 }
             }
-            return false; // Prevent form submission and page reload
         });
-    </script>
-</body>
+    </script> <!-- Closing the inline script block from the previous script tag -->
 
+        <!-- External Script Reference (only if you have an external js file, or remove if unnecessary) -->
+        <script src="js/script.js"></script>
+    </body>
 </html>

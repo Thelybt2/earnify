@@ -1,76 +1,45 @@
 <?php
-// Database credentials
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "earnify_users";
+// Include the database configuration
+require 'db_config.php';
 
-// Create a connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Check if the request method is POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Decode JSON input from the client
+    $data = json_decode(file_get_contents("php://input"));
 
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    // Validate the incoming data
+    if (!isset($data->username) || !isset($data->email) || !isset($data->password)) {
+        echo json_encode(["success" => false, "message" => "All fields are required!"]);
+        exit;
+    }
 
-// Test database connection
-echo "Database connection successful!<br>";
+    $username = $data->username;
+    $email = $data->email;
+    $password = $data->password;
 
-// Test registration logic
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Debug form data
-    echo "Username: " . $_POST['username'] . "<br>";
-    echo "Email: " . $_POST['email'] . "<br>";
-    echo "Password: " . $_POST['password'] . "<br>";
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Validate input
+    // Validate input fields
     if (empty($username) || empty($email) || empty($password)) {
-        die("All fields are required!");
+        echo json_encode(["success" => false, "message" => "All fields are required!"]);
+        exit;
     }
 
     // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    // Insert into database
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful!";
+    // Prepare the SQL statement
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $username, $email, $hashed_password);
+
+    // Execute the query and return a response
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Registration successful!"]);
     } else {
-        echo "Error: " . $conn->error;
+        echo json_encode(["success" => false, "message" => "Error: " . $conn->error]);
     }
+
+    // Close the statement and the database connection
+    $stmt->close();
+    $conn->close();
 }
-
-$conn->close();
 ?>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get user input
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
 
-    // Validate input
-    if (empty($username) || empty($email) || empty($password)) {
-        die("All fields are required!");
-    }
-
-    // Hash the password for security
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Insert user data into the database
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful! You can now log in.";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-// Close the connection
-$conn->close();
-?>
