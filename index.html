@@ -77,14 +77,14 @@
         <h1 id="auth-title">Register</h1>
         <form id="auth-form">
             <div id="register-fields">
-                <input type="text" id="username" placeholder="Username" required>
-                <input type="email" id="email" placeholder="Email Address" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email Address" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
             </div>
             <div id="login-fields" style="display: none;">
-                <input type="email" id="login-email" placeholder="Enter your email" required>
-                <input type="password" id="login-password" placeholder="Enter your password" required>
+                <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
             </div>
             <button type="submit" id="auth-button">Register</button>
         </form>
@@ -92,6 +92,9 @@
     </div>
 
     <script>
+        // Simulated user database
+        const users = [];
+
         // DOM elements
         const authContainer = document.getElementById("auth-container");
         const authTitle = document.getElementById("auth-title");
@@ -103,11 +106,11 @@
 
         let isRegistering = true; // Toggle between registration and login
 
-        // Check if the user is already registered
-        const isUserRegistered = localStorage.getItem("isRegistered");
+        // Check localStorage for registration status
+        const userRegistered = localStorage.getItem("userRegistered");
 
-        // If user is registered, show login form
-        if (isUserRegistered) {
+        if (userRegistered === "true") {
+            // User is already registered, show login form
             isRegistering = false;
             authTitle.textContent = "Login";
             authButton.textContent = "Login";
@@ -116,7 +119,6 @@
             loginFields.style.display = "block";
         }
 
-        // Toggle between Register and Login
         toggleAuth.addEventListener("click", (e) => {
             e.preventDefault();
             isRegistering = !isRegistering;
@@ -151,10 +153,9 @@
                     return;
                 }
 
-                // Save user in localStorage (In a real scenario, this would involve a backend)
-                const user = { username, email, password };
-                localStorage.setItem("user", JSON.stringify(user));
-                localStorage.setItem("isRegistered", true); // Mark user as registered
+                // Save user (In a real scenario, this would involve a backend)
+                users.push({ username, email, password });
+                localStorage.setItem("userRegistered", "true"); // Mark the user as registered
                 alert("Registration successful! Please login.");
 
                 // Switch to login form
@@ -164,10 +165,10 @@
                 const email = document.getElementById("login-email").value;
                 const password = document.getElementById("login-password").value;
 
-                const storedUser = JSON.parse(localStorage.getItem("user"));
+                const user = users.find((u) => u.email === email && u.password === password);
 
-                if (storedUser && storedUser.email === email && storedUser.password === password) {
-                    alert(Welcome back, ${storedUser.username}! Redirecting to country selection...);
+                if (user) {
+                    alert(`Welcome back, ${user.username}! Redirecting to country selection...`);
                     window.location.href = "countries.html"; // Redirect to country selection page
                 } else {
                     alert("Invalid email or password!");
@@ -175,7 +176,6 @@
             }
             return false; // Prevent form submission and page reload
         });
-
     </script>
 </body>
 
