@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_country'])) {
-    header("Location: login.html"); // Redirect to login if not authenticated
+    header("Location: countries.html"); // Redirect to login if not authenticated
     exit();
 }
 

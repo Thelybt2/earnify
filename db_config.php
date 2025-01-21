@@ -1,7 +1,7 @@
 <?php
-$host = "localhost"; // XAMPP uses localhost
-$username = "root"; // Default XAMPP username
-$password = ""; // Default XAMPP password (empty by default)
+$host = "localhost";
+$username = "root";
+$password = "";
 $database = "withdrawals_db";
 
 // Create connection

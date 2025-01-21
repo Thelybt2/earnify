@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earnify - Register or Login</title>
+    <title>Register / Login</title>
     <style>
         body {
             margin: 0;
@@ -71,9 +70,8 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="container" id="auth-container">
+    <div class="container">
         <h1 id="auth-title">Register</h1>
         <form id="auth-form">
             <div id="register-fields">
@@ -92,91 +90,41 @@
     </div>
 
     <script>
-        // Simulated user database
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-
-        // DOM elements
-        const authContainer = document.getElementById("auth-container");
-        const authTitle = document.getElementById("auth-title");
         const authForm = document.getElementById("auth-form");
-        const authButton = document.getElementById("auth-button");
+        const authTitle = document.getElementById("auth-title");
         const toggleAuth = document.getElementById("toggle-auth");
         const registerFields = document.getElementById("register-fields");
         const loginFields = document.getElementById("login-fields");
 
-        // Determine if the user is in the registration or login state
-        let isRegistering = localStorage.getItem("isRegistering") !== "false"; 
-
-        // Check localStorage for registration state
-        if (!isRegistering) {
-            authTitle.textContent = "Login";
-            authButton.textContent = "Login";
-            toggleAuth.textContent = "Don't have an account? Register";
-            registerFields.style.display = "none";
-            loginFields.style.display = "block";
-        }
+        let isRegistering = true;
 
         toggleAuth.addEventListener("click", (e) => {
             e.preventDefault();
             isRegistering = !isRegistering;
-            localStorage.setItem("isRegistering", isRegistering);
-
-            if (isRegistering) {
-                authTitle.textContent = "Register";
-                authButton.textContent = "Register";
-                toggleAuth.textContent = "Already have an account? Login";
-                registerFields.style.display = "block";
-                loginFields.style.display = "none";
-            } else {
-                authTitle.textContent = "Login";
-                authButton.textContent = "Login";
-                toggleAuth.textContent = "Don't have an account? Register";
-                registerFields.style.display = "none";
-                loginFields.style.display = "block";
-            }
+            authTitle.textContent = isRegistering ? "Register" : "Login";
+            document.getElementById("auth-button").textContent = isRegistering ? "Register" : "Login";
+            registerFields.style.display = isRegistering ? "block" : "none";
+            loginFields.style.display = isRegistering ? "none" : "block";
         });
 
-        authForm.addEventListener("submit", (e) => {
-            e.preventDefault(); // Prevent form from submitting and page reload
+        authForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(authForm);
+            const endpoint = isRegistering ? "register.php" : "login.php";
 
-            if (isRegistering) {
-                // Handle Registration
-                const username = document.getElementById("username").value;
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
-                const confirmPassword = document.getElementById("confirm-password").value;
+            const response = await fetch(endpoint, {
+                method: "POST",
+                body: formData,
+            });
+            const result = await response.json();
 
-                if (password !== confirmPassword) {
-                    alert("Passwords do not match!");
-                    return;
-                }
-
-                // Save user data in localStorage (In a real scenario, this would involve a backend)
-                users.push({ username, email, password });
-                localStorage.setItem("users", JSON.stringify(users)); // Store updated user data
-                alert("Registration successful! Please login.");
-
-                // Switch to login form
-                toggleAuth.click(); // Trigger the click event to switch to the login form
+            if (result.success) {
+                alert(result.message);
+                if (!isRegistering) window.location.href = "dashboard.html";
             } else {
-                // Handle Login
-                const email = document.getElementById("login-email").value;
-                const password = document.getElementById("login-password").value;
-
-                const user = users.find((u) => u.email === email && u.password === password);
-
-                if (user) {
-                    alert(`Welcome back, ${user.username}! Redirecting to country selection...`);
-                    localStorage.setItem("userLoggedIn", "true"); // Flag user as logged in
-                    window.location.href = "countries.html"; // Redirect to country selection page
-                } else {
-                    alert("Invalid email or password!");
-                }
+                alert(result.message);
             }
         });
-    </script> <!-- Closing the inline script block from the previous script tag -->
-
-        <!-- External Script Reference (only if you have an external js file, or remove if unnecessary) -->
-        <script src="js/script.js"></script>
-    </body>
+    </script>
+</body>
 </html>
