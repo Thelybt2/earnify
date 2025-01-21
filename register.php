@@ -2,27 +2,29 @@
 require 'db_config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+    $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirm-password'] ?? '';
 
-    if ($password !== $confirm_password) {
-        die(json_encode(["success" => false, "message" => "Passwords do not match."]));
+    if (empty($username) || empty($email) || empty($password) || $password !== $confirmPassword) {
+        echo json_encode(["success" => false, "message" => "Invalid input or passwords do not match."]);
+        exit;
     }
 
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $hashed_password);
+    $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Registration successful!"]);
     } else {
-        echo json_encode(["success" => false, "message" => "Email already exists."]);
+        echo json_encode(["success" => false, "message" => "Error: Could not register user."]);
     }
 
     $stmt->close();
     $conn->close();
 }
 ?>
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register / Login</title>
+    <title>Earnify - Login/Register</title>
     <style>
         body {
             margin: 0;
@@ -81,8 +81,8 @@
                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
             </div>
             <div id="login-fields" style="display: none;">
-                <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
-                <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                <input type="email" id="login-email" name="email" placeholder="Email" required>
+                <input type="password" id="login-password" name="password" placeholder="Password" required>
             </div>
             <button type="submit" id="auth-button">Register</button>
         </form>
@@ -90,39 +90,42 @@
     </div>
 
     <script>
-        const authForm = document.getElementById("auth-form");
-        const authTitle = document.getElementById("auth-title");
+        // Switch between login and register
         const toggleAuth = document.getElementById("toggle-auth");
+        const authTitle = document.getElementById("auth-title");
+        const authButton = document.getElementById("auth-button");
         const registerFields = document.getElementById("register-fields");
         const loginFields = document.getElementById("login-fields");
-
         let isRegistering = true;
 
         toggleAuth.addEventListener("click", (e) => {
             e.preventDefault();
             isRegistering = !isRegistering;
             authTitle.textContent = isRegistering ? "Register" : "Login";
-            document.getElementById("auth-button").textContent = isRegistering ? "Register" : "Login";
+            authButton.textContent = isRegistering ? "Register" : "Login";
+            toggleAuth.textContent = isRegistering
+                ? "Already have an account? Login"
+                : "Don't have an account? Register";
             registerFields.style.display = isRegistering ? "block" : "none";
             loginFields.style.display = isRegistering ? "none" : "block";
         });
 
-        authForm.addEventListener("submit", async (e) => {
+        // Submit the form
+        document.getElementById("auth-form").addEventListener("submit", async (e) => {
             e.preventDefault();
-            const formData = new FormData(authForm);
-            const endpoint = isRegistering ? "register.php" : "login.php";
-
-            const response = await fetch(endpoint, {
+            const url = isRegistering ? "register.php" : "login.php";
+            const formData = new FormData(e.target);
+            const response = await fetch(url, {
                 method: "POST",
                 body: formData,
             });
-            const result = await response.json();
 
-            if (result.success) {
-                alert(result.message);
-                if (!isRegistering) window.location.href = "dashboard.html";
-            } else {
-                alert(result.message);
+            const result = await response.json();
+            alert(result.message);
+
+            if (result.success && !isRegistering) {
+                // Redirect to dashboard or next page
+                window.location.href = "dashboard.html";
             }
         });
     </script>

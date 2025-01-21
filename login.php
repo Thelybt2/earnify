@@ -2,27 +2,24 @@
 require 'db_config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    $stmt = $conn->prepare("SELECT id, username, password_hash FROM users WHERE email = ?");
+    if (empty($email) || empty($password)) {
+        echo json_encode(["success" => false, "message" => "Email and password are required."]);
+        exit;
+    }
+
+    $stmt = $conn->prepare("SELECT username, password_hash FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($id, $username, $hashed_password);
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-    if ($stmt->num_rows > 0) {
-        $stmt->fetch();
-        if (password_verify($password, $hashed_password)) {
-            session_start();
-            $_SESSION['user_id'] = $id;
-            $_SESSION['username'] = $username;
-            echo json_encode(["success" => true, "message" => "Login successful!"]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Incorrect password."]);
-        }
+    if ($user && password_verify($password, $user['password_hash'])) {
+        echo json_encode(["success" => true, "message" => "Login successful!", "username" => $user['username']]);
     } else {
-        echo json_encode(["success" => false, "message" => "No account found with this email."]);
+        echo json_encode(["success" => false, "message" => "Invalid email or password."]);
     }
 
     $stmt->close();
