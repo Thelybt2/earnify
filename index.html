@@ -3,131 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earnify - Login/Register</title>
+    <title>Login and Register</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background-color: black;
             color: gold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
-
-        .container {
-            background-color: #222;
-            border: 2px solid red;
-            border-radius: 15px;
-            padding: 30px;
-            width: 100%;
+        .form-container {
             max-width: 400px;
-            text-align: center;
-            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+            margin: auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid red;
         }
-
-        .container h1 {
-            color: red;
-            margin-bottom: 20px;
-        }
-
-        .container input {
-            width: calc(100% - 20px);
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid gold;
-            border-radius: 10px;
+            border: 1px solid gold;
+            border-radius: 5px;
             background-color: black;
             color: gold;
         }
-
-        .container button {
+        button {
+            width: 100%;
+            padding: 10px;
             background-color: red;
-            color: gold;
+            color: white;
             border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
         }
-
-        .container button:hover {
+        button:hover {
             background-color: darkred;
         }
-
-        .container a {
-            color: gold;
+        .link {
+            color: red;
             text-decoration: none;
-            font-size: 14px;
             display: block;
+            text-align: center;
             margin-top: 10px;
-        }
-
-        .container a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 id="auth-title">Register</h1>
-        <form id="auth-form">
-            <div id="register-fields">
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="email" id="email" name="email" placeholder="Email Address" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
-            </div>
-            <div id="login-fields" style="display: none;">
-                <input type="email" id="login-email" name="email" placeholder="Email" required>
-                <input type="password" id="login-password" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit" id="auth-button">Register</button>
-        </form>
-        <a href="#" id="toggle-auth">Already have an account? Login</a>
+    <div class="form-container" id="registerForm">
+        <h2>Register</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password">
+        <button onclick="register()">Register</button>
+        <a href="#" class="link" onclick="showLogin()">Already have an account? Login</a>
+    </div>
+
+    <div class="form-container" id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <a href="#" class="link" onclick="showRegister()">Don't have an account? Register</a>
     </div>
 
     <script>
-        // Switch between login and register
-        const toggleAuth = document.getElementById("toggle-auth");
-        const authTitle = document.getElementById("auth-title");
-        const authButton = document.getElementById("auth-button");
-        const registerFields = document.getElementById("register-fields");
-        const loginFields = document.getElementById("login-fields");
-        let isRegistering = true;
+        // Show login form
+        function showLogin() {
+            document.getElementById("registerForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        }
 
-        toggleAuth.addEventListener("click", (e) => {
-            e.preventDefault();
-            isRegistering = !isRegistering;
-            authTitle.textContent = isRegistering ? "Register" : "Login";
-            authButton.textContent = isRegistering ? "Register" : "Login";
-            toggleAuth.textContent = isRegistering
-                ? "Already have an account? Login"
-                : "Don't have an account? Register";
-            registerFields.style.display = isRegistering ? "block" : "none";
-            loginFields.style.display = isRegistering ? "none" : "block";
-        });
+        // Show register form
+        function showRegister() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("registerForm").style.display = "block";
+        }
 
-        // Submit the form
-        document.getElementById("auth-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const url = isRegistering ? "register.php" : "login.php";
-            const formData = new FormData(e.target);
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData,
-            });
+        // Register function
+        function register() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
-            const result = await response.json();
-            alert(result.message);
-
-            if (result.success && !isRegistering) {
-                // Redirect to dashboard or next page
-                window.location.href = "dashboard.html";
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
             }
-        });
+
+            const user = { name, email, password };
+            localStorage.setItem("user", JSON.stringify(user));
+            alert("Registration successful! Please log in.");
+            showLogin();
+        }
+
+        // Login function
+        function login() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                localStorage.setItem("isLoggedIn", true);
+                window.location.href = "countries.html";
+            } else {
+                alert("Invalid email or password.");
+            }
+        }
+
+        // Auto-login
+        window.onload = () => {
+            if (localStorage.getItem("isLoggedIn")) {
+                window.location.href = "countries.html";
+            }
+        };
     </script>
 </body>
 </html>

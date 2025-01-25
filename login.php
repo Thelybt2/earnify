@@ -1,28 +1,37 @@
 <?php
-require 'db_config.php';
+session_start();
 
+$host = "localhost";
+$dbname = "earnify";
+$username = "root";
+$password = "";
+
+$conn = new mysqli($host, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    if (empty($email) || empty($password)) {
-        echo json_encode(["success" => false, "message" => "Email and password are required."]);
-        exit;
-    }
-
-    $stmt = $conn->prepare("SELECT username, password_hash FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
 
-    if ($user && password_verify($password, $user['password_hash'])) {
-        echo json_encode(["success" => true, "message" => "Login successful!", "username" => $user['username']]);
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user'] = $user;
+            echo json_encode(["status" => "success", "message" => "Login successful."]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Invalid password."]);
+        }
     } else {
-        echo json_encode(["success" => false, "message" => "Invalid email or password."]);
+        echo json_encode(["status" => "error", "message" => "No user found with this email."]);
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>
+

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earnify - Earn Easy</title>
     <style>
-        /* Add temporary styling for visualization */
+        /* General Styles */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -60,7 +60,73 @@
             cursor: not-allowed;
         }
 
-       
+        .statistics-section {
+            background-color: #222;
+            padding: 20px 0;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .statistics-section h2 {
+            color: red;
+            font-size: 24px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            color: gold;
+        }
+
+        .stats div {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .stats h3 {
+            color: red;
+            font-size: 28px;
+        }
+
+        .trusted-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .trusted-logos img {
+            width: 100px;
+            height: auto;
+        }
+
+        .testimonials-section {
+            background-color: black;
+            padding: 20px 0;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 2px solid red;
+        }
+
+        .testimonial {
+            max-width: 300px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            border: 1px solid gold;
+            text-align: center;
+            color: gold;
+        }
+
+        .testimonial img {
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -85,51 +151,197 @@
             <button onclick="redirectToCountry('spain')">Spain</button>
             <button onclick="redirectToCountry('united_states')">United States</button>
         </div>
+
+        <!-- Live Statistics Section -->
+        <section class="statistics-section">
+            <h2>Why Choose Earnify?</h2>
+            <div class="stats">
+                <div>
+                    <h3>5,000+</h3>
+                    <p>Monthly Active Users</p>
+                </div>
+                <div>
+                    <h3>8</h3>
+                    <p>Countries Supported</p>
+                </div>
+                <div>
+                    <h3>$360,000+</h3>
+                    <p>Earnings Paid Out</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trusted Logos Section -->
+        <section>
+            <h2>Trusted by:</h2>
+            <div class="trusted-logos">
+                <img src="logo1.png" alt="Trusted Company 1">
+                <img src="logo2.png" alt="Trusted Company 2">
+                <img src="logo3.png" alt="Trusted Company 3">
+                <img src="logo4.png" alt="Trusted Company 4">
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <h2>Top Users Review</h2>
+            <div class="testimonial">
+                <img src="james.jpg" alt="User 1">
+                <p>"Earnify helped me make $6943 in a month. It's a life-changer!"</p>
+                <h4>- James Tahhan</h4>
+            </div>
+            <div class="testimonial">
+                <img src="nelso.jpg" alt="User 2">
+                <p>"The referral system is easy to use. I've already referred 100 people and earned $2641,67 in 9 days!"</p>
+                <h4>- Hanaah Nelson</h4>
+            </div>
+        </section>
+
+        <!-- New instruction section -->
+        <section class="instructions-section" style="background-color: #222; padding: 20px; margin: 20px 0; border-radius: 10px; border: 2px solid red; color: gold;">
+            <h2 style="color: red; text-align: center;">Info</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+                Earnify is your trusted platform to earn money online by completing simple tasks, watching videos, answering surveys, and participating in offers. 
+                We are committed to providing a secure, reliable, and rewarding experience for all our users worldwide. Here's what you need to know:
+            </p>
+            <ul style="max-width: 800px; margin: 20px auto; padding: 0; list-style: none;">
+                <li style="margin: 10px 0;">
+                    <strong style="color: red;">1. Offer Completion:</strong> Once you complete an offer, please allow up to <span style="color: gold;">10 hours</span> for verification. This ensures all tasks are validated to avoid fraud and maintain fairness.
+                </li>
+                <li style="margin: 10px 0;">
+                    <strong style="color: red;">2. App Usage:</strong> For app-based offers, you must use the app for at least <span style="color: gold;">3 minutes</span> after downloading it. This helps the advertisers verify your engagement.
+                </li>
+                <li style="margin: 10px 0;">
+                    <strong style="color: red;">3. Account Security:</strong> Never share your login credentials with anyone. Earnify takes data security seriously, and your safety is our top priority.
+                </li>
+                <li style="margin: 10px 0;">
+                    <strong style="color: red;">4. Payment Processing:</strong> Withdrawals are processed within <span style="color: gold;">6-8 hours</span>. Ensure your payment details are accurate to avoid delays.
+                </li>
+                <li style="margin: 10px 0;">
+                    <strong style="color: red;">5. Referral Program:</strong> Invite friends to Earnify and earn <span style="color: gold;">bonus rewards</span> for each successful referral. Check our referral page for more details.
+                </li>
+            </ul>
+            <p style="text-align: center; max-width: 800px; margin: 20px auto;">
+                If you have any questions or face any issues, feel free to <a href="/contact" style="color: red; text-decoration: none;">contact our support team</a>. Start earning today and experience the power of financial freedom with Earnify!
+            </p>
+        </section>
+
+        <!-- how it works section -->
+        <section class="how-it-works" style="background-color: #111; color: gold; padding: 20px; margin: 20px 0; border-radius: 10px; border: 2px solid red;">
+            <h2 style="color: red; text-align: center;">How It Works</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                <div style="max-width: 200px; text-align: center;">
+                    <img src="offers.png" alt="Offers" style="height: 100px;">
+                    <p>1. <strong>Select</strong> and complete offers.</p>
+                </div>
+                <div style="max-width: 200px; text-align: center;">
+                    <img src="tasks.png" alt="Tasks" style="height: 100px;">
+                    <p>2. <strong>Engage</strong> with tasks or apps.</p>
+                </div>
+                <div style="max-width: 200px; text-align: center;">
+                    <img src="payment.png" alt="Payment" style="height: 100px;">
+                    <p>3. <strong>Receive</strong> your payment securely.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- faq section -->
+        <section class="faqs" style="background-color: #222; color: gold; padding: 20px; margin: 20px 0; border-radius: 10px; border: 2px solid red;">
+            <h2 style="text-align: center; color: red;">Frequently Asked Questions</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: How do I start earning?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: Simply select your country, sign up, and begin completing offers, watching videos, or answering surveys.
+                    </div>
+                </div>
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: How long does it take to verify offers?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: It can take up to 10 hours to verify completed offers.
+                    </div>
+                </div>
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: When will I receive my payment?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: Payments are processed within 6-8 hours after you request a withdrawal.
+                    </div>
+                </div>
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: Is there a minimum withdrawal amount?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: Yes, the minimum withdrawal amount is $25.
+                    </div>
+                </div>
+                <!-- Additional FAQs -->
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: What happens if I don't complete an offer properly?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: If an offer is incomplete or doesn't meet the criteria, it may not be verified, and you won’t earn rewards for it.
+                    </div>
+                </div>
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: Can I access this platform on my phone?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: Yes! Our website is mobile-friendly, and you can also use our app for a better experience.
+                    </div>
+                </div>
+                <div class="faq-item" style="margin-bottom: 10px;">
+                    <button class="faq-question" style="width: 100%; background-color: black; color: gold; border: none; text-align: left; padding: 10px; cursor: pointer; font-size: 16px; border: 2px solid red; border-radius: 5px;">
+                        Q: How can I maximize my earnings?
+                    </button>
+                    <div class="faq-answer" style="display: none; padding: 10px; border-left: 2px solid red; margin-top: 5px;">
+                        A: Engage with higher-paying offers, complete daily tasks, and refer friends to earn bonuses.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Add this JavaScript at the bottom of your HTML -->
+        <script>
+            // JavaScript to handle FAQ toggling
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    // Toggle the display of the answer
+                    if (answer.style.display === 'none' || !answer.style.display) {
+                        answer.style.display = 'block';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+
+        <!-- Footer Image -->
         <div style="text-align: center; margin: 20px 0;">
             <img src="footer.jpg" alt="Promotional Image" style="max-width: 100%; height: auto; border: 2px solid red; border-radius: 15px;">
         </div>
     </main>
 
     <!-- Footer Section -->
-    <footer style="background-color: #000; color: #FFD700; padding: 20px; text-align: center;">
-        <div style="max-width: 1200px; margin: auto;">
-          <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <div style="flex: 1; margin: 10px;">
-              <h4 style="color: #FFD700;">About Us</h4>
-              <p style="color: #FFD700;">Learn the best strategies, tips, and resources to maximize your earnings online. Join us on the journey to financial freedom!</p>
-            </div>
-            <div style="flex: 1; margin: 10px;">
-              <h4 style="color: #FFD700;">Quick Links</h4>
-              <ul style="list-style: none; padding: 0;">
-                <li><a href="/blog" style="color: #FF0000; text-decoration: none;">Blog</a></li>
-                <li><a href="/courses" style="color: #FF0000; text-decoration: none;">Courses</a></li>
-                <li><a href="/tools" style="color: #FF0000; text-decoration: none;">Tools</a></li>
-                <li><a href="/contact" style="color: #FF0000; text-decoration: none;">Contact Us</a></li>
-              </ul>
-            </div>
-            <div style="flex: 1; margin: 10px;">
-              <h4 style="color: #FFD700;">Follow Us</h4>
-              <p style="color: #FFD700;">Stay updated on the latest earning trends:</p>
-              <a href="#" style="color: #FF0000; text-decoration: none; margin: 0 10px;">Facebook</a>
-              <a href="#" style="color: #FF0000; text-decoration: none; margin: 0 10px;">Twitter</a>
-              <a href="#" style="color: #FF0000; text-decoration: none; margin: 0 10px;">Instagram</a>
-            </div>
-          </div>
-          <div style="margin-top: 20px; border-top: 1px solid #FFD700; padding-top: 10px;">
-            <p style="color: #FFD700;">&copy; 2022 Earnify. All Rights Reserved.</p>
-            <p>
-              <a href="/privacy" style="color: #FF0000; text-decoration: none;">Privacy Policy</a> | 
-              <a href="/terms" style="color: #FF0000; text-decoration: none;">Terms of Service</a>
-            </p>
-          </div>
-        </div>
-      </footer>
-      
+    <footer style="background-color: black; color: gold; padding: 20px; text-align: center;">
+        <p>Contact us at <a href="mailto:support@earnify.com" style="color: red;">support@earnify.com</a></p>
+        <p>&copy; 2022 Earnify. All Rights Reserved.</p>
+        <p><a href="/privacy" style="color: red;">Privacy Policy</a> | <a href="/terms" style="color: red;">Terms of Service</a></p>
+    </footer>
 
     <!-- Script -->
     <script>
         function redirectToCountry(country) {
-            // Replace with dynamic checks for country access
             const allowedCountries = ['egypt', 'france', 'india', 'kenya', 'nigeria', 'south_africa', 'spain', 'united_states'];
             if (allowedCountries.includes(country)) {
                 window.location.href = country + ".html";

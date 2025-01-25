@@ -1,30 +1,41 @@
 <?php
-require 'db_config.php';
+// Database connection
+$host = "localhost";
+$dbname = "earnify";
+$username = "root";
+$password = "";
 
+$conn = new mysqli($host, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle registration
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $confirmPassword = $_POST['confirm-password'] ?? '';
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $referralCode = bin2hex(random_bytes(4)); // Generate unique referral code
+    $referredBy = $_POST['referredBy'] ?? null; // Optional referral code
 
-    if (empty($username) || empty($email) || empty($password) || $password !== $confirmPassword) {
-        echo json_encode(["success" => false, "message" => "Invalid input or passwords do not match."]);
+    // Check if email already exists
+    $checkEmail = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $checkEmail->bind_param("s", $email);
+    $checkEmail->execute();
+    $result = $checkEmail->get_result();
+
+    if ($result->num_rows > 0) {
+        echo json_encode(["status" => "error", "message" => "Email already registered."]);
         exit;
     }
 
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-    $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $hashedPassword);
-
+    // Insert user into database
+    $stmt = $conn->prepare("INSERT INTO users (name, email, password, referral_code, referred_by) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $name, $email, $password, $referralCode, $referredBy);
     if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Registration successful!"]);
+        echo json_encode(["status" => "success", "message" => "Registration successful!", "referralCode" => $referralCode]);
     } else {
-        echo json_encode(["success" => false, "message" => "Error: Could not register user."]);
+        echo json_encode(["status" => "error", "message" => "Failed to register."]);
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>
-

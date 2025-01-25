@@ -6,29 +6,30 @@
     <title>Dashboard</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: black;
-    color: gold;
-}
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gold;
+        }
 
-header {
-    background-color: black;
-    border-bottom: 2px solid red;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        header {
+            background-color: black;
+            border-bottom: 2px solid red;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-header img {
-    height: 50px;
-}
+        header img {
+            height: 50px;
+        }
 
-header .balance {
-    font-size: 18px;
-    color: gold;
-}
-header .buttons {
+        header .balance {
+            font-size: 18px;
+            color: gold;
+        }
+
+        header .buttons {
             display: flex;
             gap: 10px;
         }
@@ -46,166 +47,355 @@ header .buttons {
             background-color: red;
             color: white;
         }
-main {
+
+        h1 {
+            color: red;
+            text-align: center;
+        }
+
+        .flag {
+    width: 100px; /* Adjust size */
+    height: 100px; /* Adjust size */
+    border-radius: 50%;
+    object-fit: cover; /* Ensure the image scales correctly */
+}
+
+
+        .instructions {
+            background-color: #1a1a1a;
+            border: 2px solid red;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: yellow;
+        }
+
+        .instructions h2 {
+            color: red;
+        }
+
+        .offers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 10px; /* Add margin for spacing */
+    border-radius: 20px; /* Rounded corners for the container */
+    background-color: #1a1a1a;
     padding: 20px;
-}
-
-h1 {
-    color: red;
-    text-align: center;
-}
-
-.offers-section {
-    margin-top: 20px;
+    box-sizing: border-box;
 }
 
 .offer {
     background-color: #1a1a1a;
     border: 2px solid red;
-    border-radius: 10px;
+    border-radius: 15px; /* Rounded corners for individual offers */
     padding: 15px;
-    margin-bottom: 15px;
+    width: 100%; /* Takes up the full width of the container */
+    box-sizing: border-box;
 }
 
-.offer h3 {
-    margin: 0 0 10px 0;
-    color: red;
-}
+        .offer h3 {
+            color: red;
+        }
 
-.offer p {
-    margin: 0 0 10px 0;
-}
+        .offer button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
 
-.offer button {
-    background-color: black;
-    color: gold;
-    border: 2px solid red;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
+        .offer button:hover {
+            background-color: red;
+            color: white;
+        }
 
-.offer button:hover {
-    background-color: red;
-    color: white;
-}
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-.video-section {
-    margin-top: 30px;
-}
+        .pagination button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
 
-.video-container {
-    background-color: #1a1a1a;
-    border: 2px solid red;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
+        .pagination button:hover {
+            background-color: red;
+            color: white;
+        }
 
-.video-container video {
-    width: 100%;
-    max-width: 600px;
-    border: 2px solid gold;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
+        footer {
+            background-color: black;
+            border-top: 2px solid red;
+            text-align: center;
+            padding: 10px 20px;
+            color: gold;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
 
-footer {
-    background-color: black;
-    border-top: 2px solid red;
-    text-align: center;
-    padding: 10px 20px;
-    color: gold;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-</style>
+        .warning {
+            color: yellow;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <!-- Header -->
 <header>
-<img src="logo.png" alt="Earnify Logo">
-<div class="balance">Balance: $0.00</div>
-<div class="buttons">
-    <button onclick="window.location.href='withdraw.html'">Withdraw</button>
-    <button onclick="window.location.href='account_settings.html'">Settings</button>
-</div>
+    <img src="logo.png" alt="Earnify Logo">
+    <div class="balance">Balance: $<span id="userBalance">0.00</span></div>
+    <div class="buttons">
+        <button onclick="window.location.href='withdraw.html'">Withdraw</button>
+        <button onclick="window.location.href='account_settings.html'">Settings</button>
+    </div>
 </header>
-    
-<h1>Welcome,Egypt user!</h1>
+
+<!-- Flag Section -->
+<h1>
+    <img src="eg.webp" alt="Country Flag" class="flag"> <!-- Replace 'your-flag.png' with your flag image -->
+</h1>
+
+<!-- Instructions Section -->
+<div class="instructions">
+    <h2>Important Instructions:</h2>
+    <p>
+        <strong>1. CORRECT STEPS:</strong> All offers must be completed to their full requirements. If the offer requires you to install an app install the app and use it for atleast 3 mins, complete email verification or message verification, and provide accurate and truthful information, make sure to follow through. 
+        <br>
+        <strong>2. PROPER OFFER COMPLETION:</strong> If an offer is not completed properly (e.g., using false data or not completing the verification steps), your balance may be added, but you will not be able to withdraw it. You may also face account suspension or deletion. We take this matter very seriously, and we do not tolerate any attempts to misuse the system.
+        <br>
+        <strong>3. ADULT CONTENT:</strong> Some offers may involve adult content. Please proceed with caution and only if you are comfortable with it. If you're under 18 or do not wish to participate in adult content, simply avoid those offers. 
+        <br>
+        <strong>4. AVOID FRAUD:</strong> Any fraudulent activity, including but not limited to using fake details or multiple accounts, will result in immediate account termination without warning. Please adhere to the rules for a smooth and enjoyable experience.
+    </p>
+</div>
 
 <!-- Offers Section -->
-<div class="offers-section">
-    <h2>Available Offers</h2>
-
-    <!-- Offer 1 -->
-    <div class="offer">
-        <h3> قم بتنزيل أحدث الألعاب!
-            أدخل رقم هاتفك المحمول الآن لبدء التنزيل.
-            </h3>
-        <p>Android Pin-Submit.</p>
-        <p><strong>Payout:</strong> $5.42</p>
-        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=66839')">Start Now</button>
-    </div>
-
-    <!-- Offer 2 -->
-    <div class="offer">
-        <h3>Install and use the Alibaba.com App!</h3>
-        <p>Install and use the app.</p>
-        <p><strong>Payout:</strong> $1.07</p>
-        <button onclick="startOffer('https://installyourfiles.com/show.php?l=0&u=1014967&id=65940')">Start Now</button>
-    </div>
-
-    <!-- Offer 3 -->
-    <div class="offer">
-        <h3>Get the best Dunkin Donuts Samples!</h3>
-        <p>Enter your information now to get started.</p>
-        <p><strong>Payout:</strong> $2.06</p>
-        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=67269')">Start Now</button>
-    </div>
+<div class="offers-container" id="offersContainer">
+    <!-- Offers will be dynamically inserted here -->
 </div>
-</main>
 
-<!-- Footer -->
+<!-- Pagination Section -->
+<div class="pagination" id="pagination"></div>
+
 <footer>
-<p>© 2024 Earnify. All rights reserved.</p>
+    <p>© 2024 Earnify. All rights reserved.</p>
 </footer>
 
-<!-- Scripts -->
 <script>
-// Redirect to offer link
-function startOffer(link) {
-    window.open(link, '_blank');
+// Sample offer data
+const offers = [
+    {
+        title: "تحميل Ninja Boy الآن!",
+        payout: 1.05,
+        link: "https://playabledownload.com/show.php?l=0&u=1014967&id=33875",
+        type: "Pin-Submit",
+        description: "Complete the pin-submit process to download Ninja Boy and earn your reward."
+    },
+    {
+        title: "احصل على Knights Diamonds!",
+        payout: 1.06,
+        link: "https://playabledownload.com/show.php?l=0&u=1014967&id=48946",
+        type: "Pin-Submit",
+        description: "Submit your pin to receive free Knights Diamonds as a reward."
+    },
+    {
+        title: "Hero Survey",
+        payout: 2.34,
+        link: "https://www.mobtrk.link/view.php?id=5538729&pub=2873883",
+        type: "Survey",
+        description: "Complete a survey about heroes and get paid for sharing your opinions."
+    },
+    {
+        title: "Music Survey",
+        payout: 1.05,
+        link: "https://www.lnksforyou.com/view.php?id=5538769&pub=2873883",
+        type: "Survey",
+        description: "Take this music-related survey and earn rewards for completing it."
+    },
+    {
+        title: "Board Game Survey",
+        payout: 1.05,
+        link: "https://www.mobtrk.link/view.php?id=5538771&pub=2873883",
+        type: "Survey",
+        description: "Answer questions about board games and earn a reward."
+    },
+    {
+        title: "Career Path Survey",
+        payout: 1.50,
+        link: "https://www.lnksforyou.com/view.php?id=5538777&pub=2873883",
+        type: "Survey",
+        description: "Complete a survey about career paths and get paid for sharing your experience."
+    },
+    {
+        title: "Cam Smartlink",
+        payout: 2.05,
+        link: "https://t.acrsmartcam.com/360749/3664/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN",
+        type: "Multi-CPA",
+        description: "Engage in multiple steps like installing apps or submitting your information to earn rewards."
+    },
+    {
+        title: "DatingSmartlink",
+        payout: 1.73,
+        link: "https://t.andpi.link/360749/3785/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN",
+        type: "Multi-CPA",
+        description: "Complete tasks related to dating apps and earn rewards for signing up and using them."
+    },
+    {
+        title: "PayPal Survey",
+        payout: 1.55,
+        link: "https://www.lnksforyou.com/view.php?id=5539091&pub=2873883",
+        type: "Survey",
+        description: "Share your opinions on PayPal by completing this quick survey."
+    },
+    {
+        title: "Home Depot Survey",
+        payout: 1.05,
+        link: "https://www.mobtrk.link/view.php?id=5539081&pub=2873883",
+        type: "Survey",
+        description: "Take a survey about Home Depot and get rewarded for your input."
+    },
+    {
+        title: "KFC Survey",
+        payout: 1.15,
+        link: "https://www.mobtrk.link/view.php?id=5539084&pub=2873883",
+        type: "Survey",
+        description: "Complete a quick survey on KFC and earn rewards for sharing your thoughts."
+    },
+    {
+        title: "Cash Survey",
+        payout: 1.17,
+        link: "https://www.mobtrk.link/view.php?id=5539063&pub=2873883",
+        type: "Survey",
+        description: "Complete this survey and get cash rewards for your time."
+    },
+    {
+        title: "Play Games to Earn Crypto",
+        payout: 2.00,
+        link: "https://www.lnkmeup.com/view.php?id=5539021&pub=2873883",
+        type: "Survey",
+        description: "Play games and earn cryptocurrency based on your performance."
+    },
+    {
+        title: "Your Taxes Survey",
+        payout: 1.65,
+        link: "https://www.mobtrk.link/view.php?id=5539068&pub=2873883",
+        type: "Survey",
+        description: "Complete a tax-related survey and earn rewards for sharing your experience."
+    },
+    {
+        title: "Discover Your Superhero Identity!",
+        payout: 1.56,
+        link: "https://www.directcpi.com/view.php?id=5538434&pub=2873883",
+        type: "Survey",
+        description: "Take a fun quiz to discover your superhero identity and get rewarded."
+    },
+    {
+        title: "AI Smartlink",
+        payout: 2.00,
+        link: "https://t.ajrkm.link/360749/9403/0?aff_sub5=SF_006OG000004lmDN",
+        type: "Multi-CPA",
+        description: "Engage in multiple tasks like app installs or sign-ups to earn rewards."
+    },
+    {
+        title: "DatingSmartlink",
+        payout: 1.73,
+        link: "https://t.andpi.link/360749/3785/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN",
+        type: "Multi-CPA",
+        description: "Complete dating app sign-ups and related tasks to receive your payout."
+    },
+    {
+        title: "Surveys (e.g., PayPal, Home Depot, KFC, Cash)",
+        payout: 1.05,
+        link: "https://www.mobtrk.link/view.php?id=5539081&pub=2873883",
+        type: "Survey",
+        description: "Complete surveys for brands like PayPal, Home Depot, and KFC, and get paid."
+    },
+    {
+        title: "Beddme - DOI (ZA), (EG), (KE), (NG), (IN)",
+        payout: 1.05,
+        link: "https://t.andpi.link/360749/9882/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN",
+        type: "DOI",
+        description: "Register and complete the DOI process for Beddme and earn your reward."
+    }
+];
+
+// Initialize user balance (from local storage)
+let userBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
+document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+
+// Pagination variables
+let currentPage = 1;
+const offersPerPage = 5;
+
+// Function to render offers for the current page
+function renderOffers(page) {
+    const offersContainer = document.getElementById('offersContainer');
+    const startIndex = (page - 1) * offersPerPage;
+    const endIndex = startIndex + offersPerPage;
+
+    // Clear previous offers
+    offersContainer.innerHTML = '';
+
+   // Add offers for the current page
+   const offersToDisplay = offers.slice(startIndex, endIndex);
+    offersToDisplay.forEach((offer) => {
+        const offerCard = document.createElement('div');
+        offerCard.className = 'offer';
+        offerCard.innerHTML = `
+            <h3>${offer.title}</h3>
+            <p><strong>Payout:</strong> $${offer.payout.toFixed(2)}</p>
+            <p><strong>Description:</strong> ${offer.description}</p> <!-- Added description -->
+            <button onclick="window.open('${offer.link}', '_blank')">Claim Offer</button>
+        `;
+        offersContainer.appendChild(offerCard);
+    });
+
+    renderPagination(page);
 }
 
-// Video Timer Logic
-let watchedTime = 0;
-let earnings = 0;
+// Function to render pagination buttons
+function renderPagination(page) {
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(offers.length / offersPerPage);
+    
+    let paginationHTML = '';
 
-function startVideoTimer() {
-    const video = document.getElementById('rewardVideo');
-    const timerDisplay = document.getElementById('timer');
-    const earnedDisplay = document.getElementById('earned');
+    // Previous button
+    if (page > 1) {
+        paginationHTML += `<button onclick="changePage(${page - 1})">Previous</button>`;
+    }
 
-    const timer = setInterval(() => {
-        if (!video.paused) {
-            watchedTime += 1;
-            timerDisplay.innerText = Watched Time: ${watchedTime} seconds;
+    // Page buttons
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `<button onclick="changePage(${i})" ${i === page ? 'style="background-color: red;"' : ''}>${i}</button>`;
+    }
 
-            // Earn $0.10 for every 5 seconds watched
-            if (watchedTime % 5 === 0) {
-                earnings += 0.1;
-                earnedDisplay.innerText = Earnings: $${earnings.toFixed(2)};
-            }
-        }
+    // Next button
+    if (page < totalPages) {
+        paginationHTML += `<button onclick="changePage(${page + 1})">Next</button>`;
+    }
 
-        // Stop timer when video ends
-        if (video.ended) {
-            clearInterval(timer);
-        }
-    }, 1000);
+    pagination.innerHTML = paginationHTML;
 }
+
+// Function to change page
+function changePage(page) {
+    currentPage = page;
+    renderOffers(page);
+}
+
+// Initial render
+renderOffers(currentPage);
 </script>
 </body>
 </html>

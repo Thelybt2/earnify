@@ -6,29 +6,30 @@
     <title>Dashboard</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: black;
-    color: gold;
-}
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gold;
+        }
 
-header {
-    background-color: black;
-    border-bottom: 2px solid red;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        header {
+            background-color: black;
+            border-bottom: 2px solid red;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-header img {
-    height: 50px;
-}
+        header img {
+            height: 50px;
+        }
 
-header .balance {
-    font-size: 18px;
-    color: gold;
-}
-header .buttons {
+        header .balance {
+            font-size: 18px;
+            color: gold;
+        }
+
+        header .buttons {
             display: flex;
             gap: 10px;
         }
@@ -46,203 +47,531 @@ header .buttons {
             background-color: red;
             color: white;
         }
-main {
+
+        h1 {
+            color: red;
+            text-align: center;
+        }
+
+        .flag {
+    width: 100px; /* Adjust size */
+    height: 100px; /* Adjust size */
+    border-radius: 50%;
+    object-fit: cover; /* Ensure the image scales correctly */
+}
+
+
+        .instructions {
+            background-color: #1a1a1a;
+            border: 2px solid red;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: yellow;
+        }
+
+        .instructions h2 {
+            color: red;
+        }
+
+        .offers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 10px; /* Add margin for spacing */
+    border-radius: 20px; /* Rounded corners for the container */
+    background-color: #1a1a1a;
     padding: 20px;
-}
-
-h1 {
-    color: red;
-    text-align: center;
-}
-
-.offers-section {
-    margin-top: 20px;
+    box-sizing: border-box;
 }
 
 .offer {
     background-color: #1a1a1a;
     border: 2px solid red;
-    border-radius: 10px;
+    border-radius: 15px; /* Rounded corners for individual offers */
     padding: 15px;
-    margin-bottom: 15px;
+    width: 100%; /* Takes up the full width of the container */
+    box-sizing: border-box;
 }
 
-.offer h3 {
-    margin: 0 0 10px 0;
-    color: red;
-}
+        .offer h3 {
+            color: red;
+        }
 
-.offer p {
-    margin: 0 0 10px 0;
-}
+        .offer button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
 
-.offer button {
-    background-color: black;
-    color: gold;
-    border: 2px solid red;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
+        .offer button:hover {
+            background-color: red;
+            color: white;
+        }
 
-.offer button:hover {
-    background-color: red;
-    color: white;
-}
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-.video-section {
-    margin-top: 30px;
-}
+        .pagination button {
+            background-color: black;
+            color: gold;
+            border: 2px solid red;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
 
-.video-container {
-    background-color: #1a1a1a;
-    border: 2px solid red;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
+        .pagination button:hover {
+            background-color: red;
+            color: white;
+        }
 
-.video-container video {
-    width: 100%;
-    max-width: 600px;
-    border: 2px solid gold;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
+        footer {
+            background-color: black;
+            border-top: 2px solid red;
+            text-align: center;
+            padding: 10px 20px;
+            color: gold;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
 
-footer {
-    background-color: black;
-    border-top: 2px solid red;
-    text-align: center;
-    padding: 10px 20px;
-    color: gold;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-</style>
+        .warning {
+            color: yellow;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <!-- Header -->
 <header>
-<img src="logo.png" alt="Earnify Logo">
-<div class="balance">Balance: $0.00</div>
-<div class="buttons">
-    <button onclick="window.location.href='withdraw.html'">Withdraw</button>
-    <button onclick="window.location.href='account_settings.html'">Settings</button>
-</div>
+    <img src="logo.png" alt="Earnify Logo">
+    <div class="balance">Balance: $<span id="userBalance">0.00</span></div>
+    <div class="buttons">
+        <button onclick="window.location.href='withdraw.html'">Withdraw</button>
+        <button onclick="window.location.href='account_settings.html'">Settings</button>
+    </div>
 </header>
 
-<!-- Main Content -->
-<main>
-<h1>Welcome,spain user!</h1>
+<!-- Flag Section -->
+<h1>
+    <img src="es.png" alt="Country Flag" class="flag"> <!-- Replace 'your-flag.png' with your flag image -->
+</h1>
+
+<!-- Instructions Section -->
+<div class="instructions">
+    <h2>Important Instructions:</h2>
+    <p>
+        <strong>1. CORRECT STEPS:</strong> All offers must be completed to their full requirements. If the offer requires you to install an app install the app and use it for atleast 3 mins, complete email verification or message verification, and provide accurate and truthful information, make sure to follow through. 
+        <br>
+        <strong>2. PROPER OFFER COMPLETION:</strong> If an offer is not completed properly (e.g., using false data or not completing the verification steps), your balance may be added, but you will not be able to withdraw it. You may also face account suspension or deletion. We take this matter very seriously, and we do not tolerate any attempts to misuse the system.
+        <br>
+        <strong>3. ADULT CONTENT:</strong> Some offers may involve adult content. Please proceed with caution and only if you are comfortable with it. If you're under 18 or do not wish to participate in adult content, simply avoid those offers. 
+        <br>
+        <strong>4. AVOID FRAUD:</strong> Any fraudulent activity, including but not limited to using fake details or multiple accounts, will result in immediate account termination without warning. Please adhere to the rules for a smooth and enjoyable experience.
+    </p>
+</div>
 
 <!-- Offers Section -->
-<div class="offers-section">
-    <h2>Available Offers</h2>
-
-    <!-- Offer 1 -->
-    <div class="offer">
-        <h3>¡Consigue ya un Uber Eats de 500€!
-            Ingrese su información ahora para tener la oportunidad de ganar.
-            </h3>
-        <p> Android Email/Zip Submit
-            .</p>
-        <p><strong>Payout:</strong> $2.42</p>
-        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=62692')">Start Now</button>
-    </div>
-
-    <!-- Offer 2 -->
-    <div class="offer">
-        <h3>¡Suscríbete a FIFA 24 ahora!
-            Ingrese su número de teléfono móvil ahora para comenzar.
-            </h3>
-        <p> Android Pin-Submit</p>
-        <p><strong>Payout:</strong> $4.07</p>
-        <button onclick="startOffer('https://tundrafile.com/show.php?l=0&u=1014967&id=63362')">Start Now</button>
-    </div>
-
-    <!-- Offer 3 -->
-    <div class="offer">
-        <h3> ¡Echa un vistazo al Van Moof S3!
-            Ingrese la información de su tarjeta de crédito para comenzar.
-            </h3>
-        <p>Android Credit Card Submit</p>
-        <p><strong>Payout:</strong> $16.06</p>
-        <button onclick="startOffer('https://tundrafile.com/show.php?l=0&u=1014967&id=64336')">Start Now</button>
-    </div>
-
-    <!-- Offer 4 -->
-    <div class="offer">
-        <h3>¡Obtén el contenido más reciente de FIFIA 24 ahora!
-            Ingrese su número de teléfono móvil ahora para comenzar a descargar.            
-            </h3>
-        <p> Android Pin-Submit</p>
-        <p><strong>Payout:</strong> $10.06</p>
-        <button onclick="startOffer('https://playabledownload.com/show.php?l=0&u=1014967&id=64799')">Start Now</button>
-    </div>
-
-      <!-- Offer 5 -->
-      <div class="offer">
-        <h3> ¡Consigue ya tu vale H&M de 300€!
-            Ingrese su información ahora para tener la oportunidad de ganar.                       
-            </h3>
-        <p> Android Email/Zip Submit</p>
-        <p><strong>Payout:</strong> $6.06</p>
-        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=64526')">Start Now</button>
-    </div>
-
-    <!-- Offer 6 -->
-    <div class="offer">
-        <h3> ¡Consigue ya tu vale H&M de 300€!
-            Ingrese su información ahora para tener la oportunidad de ganar.                       
-            </h3>
-        <p> Android Email/Zip Submit</p>
-        <p><strong>Payout:</strong> $6.56</p>
-        <button onclick="startOffer('https://singingfiles.com/show.php?l=0&u=1014967&id=61585')">Start Now</button>
-    </div>
+<div class="offers-container" id="offersContainer">
+    <!-- Offers will be dynamically inserted here -->
 </div>
-</main>
 
-<!-- Footer -->
+<!-- Pagination Section -->
+<div class="pagination" id="pagination"></div>
+
+
 <footer>
-<p>© 2024 Earnify. All rights reserved.</p>
+    <p>© 2024 Earnify. All rights reserved.</p>
 </footer>
 
-<!-- Scripts -->
 <script>
-// Redirect to offer link
-function startOffer(link) {
-    window.open(link, '_blank');
+// Sample offer data
+const offers = [
+    { 
+        title: "CitasConMujeres - SOI (ES)", 
+        payout: 2.10, 
+        link: "https://t.andpi.link/360749/9448/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN", 
+        adult: false, 
+        description: "Sign up for CitasConMujeres to earn a payout after completing the SOI process."
+    },
+    { 
+        title: "Buen Polvo - SOI (ES)", 
+        payout: 1.23, 
+        link: "https://t.andpi.link/360749/9483/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN", 
+        adult: false, 
+        description: "Complete the SOI process for Buen Polvo and get paid for your registration."
+    },
+    { 
+        title: "Beddme - DOI (ES)", 
+        payout: 5.05, 
+        link: "https://t.andpi.link/360749/9882/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN", 
+        adult: false, 
+        description: "Complete the DOI registration for Beddme to claim your reward."
+    },
+    { 
+        title: "CAM4 - DOI (ES)", 
+        payout: 1.93, 
+        link: "https://t.acrsmartcam.com/360749/5409/37049?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN", 
+        adult: true, 
+        description: "Complete the DOI for CAM4 and get rewarded for signing up."
+    },
+    { 
+        title: "AI Smartlink", 
+        payout: 1.00, 
+        link: "https://t.ajrkm.link/360749/9403/0?aff_sub5=SF_006OG000004lmDN", 
+        adult: false, 
+        description: "Engage with AI-powered apps or services for rewards."
+    },
+    { 
+        title: "DatingSmartlink", 
+        payout: 1.73, 
+        link: "https://t.andpi.link/360749/3785/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN", 
+        adult: false, 
+        description: "Earn rewards for signing up for various dating apps through Smartlink."
+    },
+    { 
+        title: "PayPal Survey", 
+        payout: 1.55, 
+        link: "https://www.lnksforyou.com/view.php?id=5539091&pub=2873883", 
+        adult: false, 
+        description: "Complete the PayPal survey to earn your reward."
+    },
+    { 
+        title: "Home Depot Survey", 
+        payout: 1.05, 
+        link: "https://www.mobtrk.link/view.php?id=5539081&pub=2873883", 
+        adult: false, 
+        description: "Take the Home Depot survey to get paid."
+    },
+    { 
+        title: "KFC Survey", 
+        payout: 3.15, 
+        link: "https://www.mobtrk.link/view.php?id=5539084&pub=2873883", 
+        adult: false, 
+        description: "Share your feedback on KFC and earn a reward."
+    },
+    { 
+        title: "Cash Survey", 
+        payout: 2.17, 
+        link: "https://www.mobtrk.link/view.php?id=5539063&pub=2873883", 
+        adult: false, 
+        description: "Complete a cash-related survey to earn a reward."
+    },
+    { 
+        title: "Play Games to Earn Crypto", 
+        payout: 1.00, 
+        link: "https://www.lnkmeup.com/view.php?id=5539021&pub=2873883", 
+        adult: false, 
+        description: "Play games and earn cryptocurrency by completing this offer."
+    },
+    { 
+        title: "Your Taxes Survey", 
+        payout: 1.65, 
+        link: "https://www.mobtrk.link/view.php?id=5539068&pub=2873883", 
+        adult: false, 
+        description: "Take a survey about your taxes and receive a reward."
+    },
+    { 
+        title: "Discover Your Superhero Identity!", 
+        payout: 1.56, 
+        link: "https://www.directcpi.com/view.php?id=5538434&pub=2873883", 
+        adult: false, 
+        description: "Find out your superhero identity by taking this fun survey."
+    },
+    { 
+        title: "Hero Survey", 
+        payout: 2.34, 
+        link: "https://www.mobtrk.link/view.php?id=5538729&pub=2873883", 
+        adult: false, 
+        description: "Take a hero-related survey and get paid for your insights."
+    },
+    { 
+        title: "Music Survey", 
+        payout: 1.05, 
+        link: "https://www.lnksforyou.com/view.php?id=5538769&pub=2873883", 
+        adult: false, 
+        description: "Share your opinions on music and earn a reward."
+    },
+    { 
+        title: "Board Game Survey", 
+        payout: 1.05, 
+        link: "https://www.mobtrk.link/view.php?id=5538771&pub=2873883", 
+        adult: false, 
+        description: "Complete a survey about board games to get paid."
+    },
+    { 
+        title: "Career Path Survey", 
+        payout: 1.50, 
+        link: "https://www.lnksforyou.com/view.php?id=5538777&pub=2873883", 
+        adult: false, 
+        description: "Fill out a career path survey to earn a reward."
+    },
+    { 
+        title: "Cam Smartlink", 
+        payout: 1.05, 
+        link: "https://t.acrsmartcam.com/360749/3664/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN", 
+        adult: true, 
+        description: "Complete multi-CPA tasks for payouts on related smart cam links."
+    },
+    { 
+        title: "¡Consigue ya tu vale Temu de 200€!", 
+        payout: 1.20, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=64972", 
+        adult: false, 
+        description: "Get a €200 Temu voucher by completing this offer."
+    },
+    { 
+        title: "¡Consigue un cupón de H&M ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=43336", 
+        adult: false, 
+        description: "Claim your H&M coupon now by completing this quick task."
+    },
+    { 
+        title: "¡Adquiere tu producto Coca Cola ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=55528", 
+        adult: false, 
+        description: "Complete this offer and get a Coca Cola product."
+    },
+    { 
+        title: "¡Accede a tu vale Reebok de 500€!", 
+        payout: 1.02, 
+        link: "https://playabledownload.com/show.php?l=0&u=1014967&id=64002", 
+        adult: false, 
+        description: "Get access to your €500 Reebok voucher by completing this offer."
+    },
+    { 
+        title: "¡Obtén la última camiseta de fútbol ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=64064", 
+        adult: false, 
+        description: "Claim the latest football shirt by completing this task."
+    },
+    { 
+        title: "Consigue tu robot Cookeo ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=54524", 
+        adult: false, 
+        description: "Get your Cookeo robot now by completing this offer."
+    },
+    { 
+        title: "¡Puedes conseguir ahora un vale de compra de 500 €!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=67598", 
+        adult: false, 
+        description: "Get a €500 shopping voucher now by completing this offer."
+    },
+    { 
+        title: "Accede ya a tu EURO 24 de Fútbol!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=65552", 
+        adult: false, 
+        description: "Claim your EURO 24 football voucher by completing this task."
+    },
+    { 
+        title: "¡Obtén los últimos premios de Coca Cola ahora!", 
+        payout: 1.02, 
+        link: "https://singingfiles.com/show.php?l=0&u=1014967&id=62149", 
+        adult: false, 
+        description: "Get the latest Coca Cola rewards now by completing this offer."
+    },
+    { 
+        title: "¡Consigue tus camisetas de fútbol 2024 ahora!", 
+        payout: 1.02, 
+        link: "https://singingfiles.com/show.php?l=0&u=1014967&id=64526", 
+        adult: false, 
+        description: "Claim your 2024 football shirts by completing this task."
+    },
+    { 
+        title: "¡Obtén el último Samsung S24 ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=66353", 
+        adult: false, 
+        description: "Get the latest Samsung S24 by completing this offer."
+    },
+    { 
+        title: "¡Consigue tu vale Lego de 500€ ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=61582", 
+        adult: false, 
+        description: "Claim your €500 Lego voucher by completing this offer."
+    },
+    { 
+        title: "Consigue tu vale de Alibaba de 500€ ahora!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=63719", 
+        adult: false, 
+        description: "Get a €500 Alibaba voucher by completing this offer."
+    },
+    { 
+        title: "Consigue ya un Uber Eats de 500€!", 
+        payout: 1.02, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=62692", 
+        adult: false, 
+        description: "Get a €500 Uber Eats voucher by completing this task."
+    },
+    { 
+        title: "Reclama tu Samsung Galaxy ahora!", 
+        payout: 0.86, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=53629", 
+        adult: false, 
+        description: "Claim your Samsung Galaxy by completing this offer."
+    },
+    { 
+        title: "Consigue tu bono de viaje!", 
+        payout: 0.86, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=55788", 
+        adult: false, 
+        description: "Get your travel voucher now by completing this offer."
+    },
+    { 
+        title: "Reclama tu bono de 50€ de Sorteo ahora!", 
+        payout: 2.86, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=56222", 
+        adult: false, 
+        description: "Claim your €50 giveaway bonus by completing this task."
+    },
+    { 
+        title: "Obtenga acceso al último Samsung S24!", 
+        payout: 1.69, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=63692", 
+        adult: false, 
+        description: "Get access to the latest Samsung S24 by completing this offer."
+    },
+    { 
+        title: "Consigue ya tu bono de supermercado de 250€!", 
+        payout: 3.04, 
+        link: "https://tundrafile.com/show.php?l=0&u=1014967&id=63695", 
+        adult: false, 
+        description: "Claim your €250 grocery store voucher now by completing this task."
+    }
+];
+
+
+
+// Initialize user balance and completed offers (from local storage)
+let userBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
+let completedOffers = JSON.parse(localStorage.getItem('completedOffers')) || [];
+const offerStatus = JSON.parse(localStorage.getItem('offerStatus')) || [];
+
+// Display initial balance
+document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+
+// Pagination variables
+let currentPage = 1;
+const offersPerPage = 5;
+
+// Function to render offers for the current page
+function renderOffers(page) {
+    const offersContainer = document.getElementById('offersContainer');
+    const startIndex = (page - 1) * offersPerPage;
+    const endIndex = startIndex + offersPerPage;
+
+    // Clear previous offers
+    offersContainer.innerHTML = '';
+
+   // Add offers for the current page
+   const offersToDisplay = offers.slice(startIndex, endIndex);
+    offersToDisplay.forEach((offer) => {
+        const offerCard = document.createElement('div');
+        offerCard.className = 'offer';
+        offerCard.innerHTML = `
+            <h3>${offer.title}</h3>
+            <p><strong>Payout:</strong> $${offer.payout.toFixed(2)}</p>
+            <p><strong>Description:</strong> ${offer.description}</p> <!-- Added description -->
+            <button onclick="window.open('${offer.link}', '_blank')">Claim Offer</button>
+        `;
+        offersContainer.appendChild(offerCard);
+    });
+
+    renderPagination(page);
+}
+// Function to render pagination buttons
+function renderPagination(page) {
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(offers.length / offersPerPage);
+    
+    let paginationHTML = '';
+
+    // Previous button
+    if (page > 1) {
+        paginationHTML += `<button onclick="changePage(${page - 1})">Previous</button>`;
+    }
+
+    // Page buttons
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `<button onclick="changePage(${i})" ${i === page ? 'style="background-color: red;"' : ''}>${i}</button>`;
+    }
+
+    // Next button
+    if (page < totalPages) {
+        paginationHTML += `<button onclick="changePage(${page + 1})">Next</button>`;
+    }
+
+    pagination.innerHTML = paginationHTML;
 }
 
-// Video Timer Logic
-let watchedTime = 0;
-let earnings = 0;
-
-function startVideoTimer() {
-    const video = document.getElementById('rewardVideo');
-    const timerDisplay = document.getElementById('timer');
-    const earnedDisplay = document.getElementById('earned');
-
-    const timer = setInterval(() => {
-        if (!video.paused) {
-            watchedTime += 1;
-            timerDisplay.innerText = Watched Time: ${watchedTime} seconds;
-
-            // Earn $0.10 for every 5 seconds watched
-            if (watchedTime % 5 === 0) {
-                earnings += 0.1;
-                earnedDisplay.innerText = Earnings: $${earnings.toFixed(2)};
-            }
-        }
-
-        // Stop timer when video ends
-        if (video.ended) {
-            clearInterval(timer);
-        }
-    }, 1000);
+// Function to change page
+function changePage(page) {
+    currentPage = page;
+    renderOffers(page);
 }
+
+// Initial render
+renderOffers(currentPage);
+
+// Start offer logic
+function startOffer(index) {
+    const offer = offers[index];
+    const confirmAdult = offer.adult ? confirm("This offer contains adult content. Do you wish to proceed?") : true;
+
+    if (confirmAdult) {
+        window.open(offer.link, '_blank');
+        
+        // Mark offer as started, add timestamp for pending
+        completedOffers.push(index);
+        offerStatus.push({ index: index, timestamp: Date.now() });
+
+        // Save data to local storage
+        localStorage.setItem('completedOffers', JSON.stringify(completedOffers));
+        localStorage.setItem('offerStatus', JSON.stringify(offerStatus));
+
+        // Temporarily add to balance (pending until verification)
+        userBalance += offer.payout;
+        document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+        localStorage.setItem('userBalance', userBalance.toFixed(2));
+
+        createOffers(); // Refresh offers to update button state
+    }
+}
+
+// Check and verify completed offers after 10 hours
+function verifyOffers() {
+    const now = Date.now();
+    offerStatus.forEach((status, index) => {
+        if (now - status.timestamp >= 10 * 60 * 60 * 1000 && !completedOffers.includes(index)) {
+            // Add to the main balance
+            userBalance += offers[index].payout;
+            completedOffers.push(index);
+            localStorage.setItem('userBalance', userBalance.toFixed(2));
+            localStorage.setItem('completedOffers', JSON.stringify(completedOffers));
+            document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+        }
+    });
+}
+
+// Initialize dashboard and start the verification process
+createOffers();
+verifyOffers();
 </script>
 </body>
 </html>
