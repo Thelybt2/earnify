@@ -344,14 +344,33 @@
 
     <!-- Script -->
     <script>
+        // Function to handle redirection
         function redirectToCountry(country) {
-            const allowedCountries = ['egypt', 'france', 'india', 'kenya', 'nigeria', 'south_africa', 'spain', 'united_states'];
-            if (allowedCountries.includes(country)) {
-                window.location.href = country + ".html";
-            } else {
-                alert("Access denied. This section is restricted to residents of " + country + ".");
-            }
+            window.location.href = country + ".html";
         }
+
+        // Fetch the user's country using a GeoIP service
+        fetch('https://ipapi.co/json/') // You can use other GeoIP APIs like ipinfo.io, ipstack.com, etc.
+            .then(response => response.json())
+            .then(data => {
+                const userCountry = data.country_name.toLowerCase();
+                const allowedCountries = [
+                    'egypt', 'france', 'india', 
+                    'kenya', 'nigeria', 'south_africa', 
+                    'spain', 'united_states'
+                ];
+
+                // Enable the button for the user's country
+                if (allowedCountries.includes(userCountry)) {
+                    document.getElementById(userCountry).disabled = false;
+                } else {
+                    alert('Access restricted. Your country is not supported.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching GeoIP data:', error);
+                alert('Unable to determine your location. Access restricted.');
+            });
     </script>
 </body>
 </html>
