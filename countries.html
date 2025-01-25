@@ -344,29 +344,40 @@
 
     <!-- Script -->
     <script>
-        // Allowed countries
-        const allowedCountries = ['Egypt', 'France', 'India', 'Kenya', 'Nigeria', 'South Africa', 'Spain', 'United States'];
-    
         // Function to fetch user's country via IP-API
         async function fetchUserCountry() {
             try {
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
-                const userCountry = data.country_name;
-    
-                // Check if the user's country is in the allowed list
-                if (allowedCountries.includes(userCountry)) {
-                    alert(`Welcome! You are accessing from ${userCountry}`);
-                } else {
-                    alert(`Access denied. This platform is not available in ${userCountry}.`);
-                    document.body.innerHTML = "<h1 style='color: red; text-align: center;'>Access Restricted</h1>";
-                }
+                const userCountry = data.country_name.toLowerCase(); // Convert to lowercase for matching
+                const allowedCountries = {
+                    'egypt': 'egypt',
+                    'france': 'france',
+                    'india': 'india',
+                    'kenya': 'kenya',
+                    'nigeria': 'nigeria',
+                    'south africa': 'south-africa',
+                    'spain': 'spain',
+                    'united states': 'united-states'
+                };
+
+                // Enable the button for the user's country and disable all others
+                const buttons = document.querySelectorAll('#country-buttons button');
+                buttons.forEach(button => {
+                    if (allowedCountries[userCountry] === button.id) {
+                        button.disabled = false; // Enable the button for the user's country
+                        button.innerHTML = `Access ${userCountry.charAt(0).toUpperCase() + userCountry.slice(1)}`;
+                        alert(`You can access the platform from ${userCountry.charAt(0).toUpperCase() + userCountry.slice(1)}`);
+                    } else {
+                        button.disabled = true; // Disable all other buttons
+                    }
+                });
             } catch (error) {
                 console.error("Error fetching user country:", error);
                 alert("Unable to verify your location. Please try again later.");
             }
         }
-    
+
         // Call the function on page load
         fetchUserCountry();
     </script>
