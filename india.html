@@ -396,52 +396,49 @@ function changePage(page) {
     renderOffers(page);
 }
 
-// Initial render
-renderOffers(currentPage);
-
-// Start offer logic
-function startOffer(index) {
+// Function to claim offer
+function claimOffer(index) {
     const offer = offers[index];
-    const confirmAdult = offer.adult ? confirm("This offer contains adult content. Do you wish to proceed?") : true;
 
-    if (confirmAdult) {
-        window.open(offer.link, '_blank');
-        
-        // Mark offer as started, add timestamp for pending
-        completedOffers.push(index);
-        offerStatus.push({ index: index, timestamp: Date.now() });
+    // Mark offer as started, add timestamp for pending
+    offerStatus.push({ index: index, timestamp: Date.now() });
 
-        // Save data to local storage
-        localStorage.setItem('completedOffers', JSON.stringify(completedOffers));
-        localStorage.setItem('offerStatus', JSON.stringify(offerStatus));
+    // Save data to local storage
+    localStorage.setItem('offerStatus', JSON.stringify(offerStatus));
 
-        // Temporarily add to balance (pending until verification)
-        userBalance += offer.payout;
-        document.getElementById('userBalance').innerText = userBalance.toFixed(2);
-        localStorage.setItem('userBalance', userBalance.toFixed(2));
+    // Temporarily add to balance (pending until verification)
+    userBalance += offer.payout;
+    document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+    localStorage.setItem('userBalance', userBalance.toFixed(2));
 
-        createOffers(); // Refresh offers to update button state
-    }
+    // Refresh offers
+    renderOffers(currentPage);
 }
 
 // Check and verify completed offers after 10 hours
 function verifyOffers() {
     const now = Date.now();
-    offerStatus.forEach((status, index) => {
-        if (now - status.timestamp >= 10 * 60 * 60 * 1000 && !completedOffers.includes(index)) {
-            // Add to the main balance
-            userBalance += offers[index].payout;
-            completedOffers.push(index);
-            localStorage.setItem('userBalance', userBalance.toFixed(2));
+    offerStatus.forEach((status) => {
+        if (now - status.timestamp >= 10 * 60 * 60 * 1000 && !completedOffers.includes(status.index)) {
+            // Mark as completed
+            completedOffers.push(status.index);
+            userBalance += offers[status.index].payout;
             localStorage.setItem('completedOffers', JSON.stringify(completedOffers));
+            localStorage.setItem('userBalance', userBalance.toFixed(2));
             document.getElementById('userBalance').innerText = userBalance.toFixed(2);
         }
     });
+
+    // Update offer buttons to show "Completed" and disable them
+    renderOffers(currentPage);
 }
 
 // Initialize dashboard and start the verification process
-createOffers();
+renderOffers(currentPage);
 verifyOffers();
+
+// Call verifyOffers every 5 minutes to check for completed offers
+setInterval(verifyOffers, 5 * 60 * 1000);
 </script>
 </body>
 </html>

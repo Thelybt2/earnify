@@ -146,13 +146,13 @@
         <!-- Country Buttons -->
         <div class="country-buttons">
             <button id="egypt" onclick="redirectToCountry('egypt')" disabled>Egypt</button>
-            <button id="france" onclick="redirectToCountry('france')" disabled>France</button>
-            <button id="india" onclick="redirectToCountry('india')" disabled>India</button>
-            <button id="kenya" onclick="redirectToCountry('kenya')" disabled>Kenya</button>
-            <button id="nigeria" onclick="redirectToCountry('nigeria')" disabled>Nigeria</button>
-            <button id="south_africa" onclick="redirectToCountry('south_africa')" disabled>South Africa</button>
-            <button id="spain" onclick="redirectToCountry('spain')" disabled>Spain</button>
-            <button id="united_states" onclick="redirectToCountry('united_states')" disabled>United States</button>
+        <button id="france" onclick="redirectToCountry('france')" disabled>France</button>
+        <button id="india" onclick="redirectToCountry('india')" disabled>India</button>
+        <button id="kenya" onclick="redirectToCountry('kenya')" disabled>Kenya</button>
+        <button id="nigeria" onclick="redirectToCountry('nigeria')" disabled>Nigeria</button>
+        <button id="south_africa" onclick="redirectToCountry('south_africa')" disabled>South Africa</button>
+        <button id="spain" onclick="redirectToCountry('spain')" disabled>Spain</button>
+        <button id="united_states" onclick="redirectToCountry('united_states')" disabled>United States</button>
         </div>
     
 
@@ -344,6 +344,7 @@
     </footer>
 
     <!-- Script -->
+    
     <script>
         // Function to fetch user's country via IP-API
         async function fetchUserCountry() {
@@ -351,24 +352,33 @@
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
                 const userCountry = data.country_name.toLowerCase(); // Convert to lowercase for matching
+    
+                console.log("Detected Country:", userCountry); // Debugging log
+    
                 const allowedCountries = {
-                    'egypt': 'egypt',
-                    'france': 'france',
-                    'india': 'india',
-                    'kenya': 'kenya',
-                    'nigeria': 'nigeria',
-                    'south africa': 'south-africa',
-                    'spain': 'spain',
-                    'united states': 'united-states'
+                    'egypt': 'egypt.html',
+                    'france': 'france.html',
+                    'india': 'india.html',
+                    'kenya': 'kenya.html',
+                    'nigeria': 'nigeria.html',
+                    'south africa': 'south_africa.html',
+                    'spain': 'spain.html',
+                    'united states': 'united_states.html'
                 };
-
-                // Enable the button for the user's country and disable all others
-                const buttons = document.querySelectorAll('#country-buttons button');
+    
+                // Log available countries and user's detected country
+                console.log("Available Countries:", allowedCountries);
+    
+                const buttons = document.querySelectorAll('.country-buttons button');
                 buttons.forEach(button => {
-                    if (allowedCountries[userCountry] === button.id) {
+                    // Check if the country is in the allowed list
+                    const countryName = button.innerHTML.toLowerCase();
+                    if (allowedCountries[countryName] && userCountry === countryName) {
+                        console.log("Enabling button for:", countryName); // Debugging log
                         button.disabled = false; // Enable the button for the user's country
-                        button.innerHTML = `Access ${userCountry.charAt(0).toUpperCase() + userCountry.slice(1)}`;
-                        alert(`You can access the platform from ${userCountry.charAt(0).toUpperCase() + userCountry.slice(1)}`);
+                        button.onclick = function() {
+                            redirectToCountry(allowedCountries[countryName]);
+                        };
                     } else {
                         button.disabled = true; // Disable all other buttons
                     }
@@ -378,9 +388,15 @@
                 alert("Unable to verify your location. Please try again later.");
             }
         }
-
+    
+        // Redirect to the selected country
+        function redirectToCountry(countryPage) {
+            window.location.href = countryPage;
+        }
+    
         // Call the function on page load
         fetchUserCountry();
     </script>
+    
 </body>
 </html>
