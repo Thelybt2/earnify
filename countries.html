@@ -344,33 +344,31 @@
 
     <!-- Script -->
     <script>
-        // Function to handle redirection
-        function redirectToCountry(country) {
-            window.location.href = country + ".html";
-        }
-
-        // Fetch the user's country using a GeoIP service
-        fetch('https://ipapi.co/json/') // You can use other GeoIP APIs like ipinfo.io, ipstack.com, etc.
-            .then(response => response.json())
-            .then(data => {
-                const userCountry = data.country_name.toLowerCase();
-                const allowedCountries = [
-                    'egypt', 'france', 'india', 
-                    'kenya', 'nigeria', 'south_africa', 
-                    'spain', 'united_states'
-                ];
-
-                // Enable the button for the user's country
+        // Allowed countries
+        const allowedCountries = ['Egypt', 'France', 'India', 'Kenya', 'Nigeria', 'South Africa', 'Spain', 'United States'];
+    
+        // Function to fetch user's country via IP-API
+        async function fetchUserCountry() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                const userCountry = data.country_name;
+    
+                // Check if the user's country is in the allowed list
                 if (allowedCountries.includes(userCountry)) {
-                    document.getElementById(userCountry).disabled = false;
+                    alert(`Welcome! You are accessing from ${userCountry}`);
                 } else {
-                    alert('Access restricted. Your country is not supported.');
+                    alert(`Access denied. This platform is not available in ${userCountry}.`);
+                    document.body.innerHTML = "<h1 style='color: red; text-align: center;'>Access Restricted</h1>";
                 }
-            })
-            .catch(error => {
-                console.error('Error fetching GeoIP data:', error);
-                alert('Unable to determine your location. Access restricted.');
-            });
+            } catch (error) {
+                console.error("Error fetching user country:", error);
+                alert("Unable to verify your location. Please try again later.");
+            }
+        }
+    
+        // Call the function on page load
+        fetchUserCountry();
     </script>
 </body>
 </html>
