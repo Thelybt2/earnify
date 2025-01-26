@@ -10,7 +10,6 @@
             background-color: black;
             color: gold;
         }
-
         header {
             background-color: black;
             border-bottom: 2px solid red;
@@ -19,24 +18,16 @@
             justify-content: space-between;
             align-items: center;
         }
-
         header img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
         }
-
-        header .balance {
-            font-size: 18px;
-            color: gold;
-        }
-
         header .buttons {
             display: flex;
             gap: 10px;
         }
-
         header .buttons button {
             background-color: black;
             color: gold;
@@ -45,25 +36,28 @@
             padding: 5px 15px;
             cursor: pointer;
         }
-
         header .buttons button:hover {
             background-color: red;
             color: white;
         }
-
-        h1 {
-            color: red;
+        .balance-container {
+            background-color: #1a1a1a;
+            border: 2px solid red;
+            border-radius: 10px;
+            padding: 15px;
             text-align: center;
+            margin-top: 20px;
         }
-
+        .balance-container div {
+            font-size: 14px;
+            margin: 5px 0;
+        }
         .flag {
-    width: 100px; /* Adjust size */
-    height: 100px; /* Adjust size */
-    border-radius: 50%;
-    object-fit: cover; /* Ensure the image scales correctly */
-}
-
-
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
         .instructions {
             background-color: #1a1a1a;
             border: 2px solid red;
@@ -72,35 +66,30 @@
             margin: 20px 0;
             color: yellow;
         }
-
         .instructions h2 {
             color: red;
         }
-
         .offers-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin: 20px 10px; /* Add margin for spacing */
-    border-radius: 20px; /* Rounded corners for the container */
-    background-color: #1a1a1a;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.offer {
-    background-color: #1a1a1a;
-    border: 2px solid red;
-    border-radius: 15px; /* Rounded corners for individual offers */
-    padding: 15px;
-    width: 100%; /* Takes up the full width of the container */
-    box-sizing: border-box;
-}
-
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 20px 10px;
+            border-radius: 20px;
+            background-color: #1a1a1a;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .offer {
+            background-color: #1a1a1a;
+            border: 2px solid red;
+            border-radius: 15px;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
         .offer h3 {
             color: red;
         }
-
         .offer button {
             background-color: black;
             color: gold;
@@ -109,17 +98,14 @@
             padding: 10px 20px;
             cursor: pointer;
         }
-
         .offer button:hover {
             background-color: red;
             color: white;
         }
-
         .pagination {
             text-align: center;
             margin-top: 20px;
         }
-
         .pagination button {
             background-color: black;
             color: gold;
@@ -129,12 +115,10 @@
             margin: 0 5px;
             border-radius: 5px;
         }
-
         .pagination button:hover {
             background-color: red;
             color: white;
         }
-
         footer {
             background-color: black;
             border-top: 2px solid red;
@@ -145,7 +129,6 @@
             bottom: 0;
             width: 100%;
         }
-
         .warning {
             color: yellow;
             font-weight: bold;
@@ -153,43 +136,37 @@
     </style>
 </head>
 <body>
-<!-- Header -->
 <header>
     <img src="logo.png" alt="Earnify Logo">
-    <div class="balance">Balance: $<span id="userBalance">0.00</span></div>
     <div class="buttons">
         <button onclick="window.location.href='withdraw.html'">Withdraw</button>
         <button onclick="window.location.href='account_settings.html'">Settings</button>
     </div>
 </header>
 
-<!-- Flag Section -->
-<h1>
-    <img src="fr.webp" alt="Country Flag" class="flag"> <!-- Replace 'your-flag.png' with your flag image -->
-</h1>
+<div class="balance-container">
+    <div><strong>Main Balance:</strong> $<span id="mainBalance">0.00</span></div>
+    <div><strong>Pending Balance:</strong> $<span id="pendingBalance">0.00</span></div>
+</div>
 
-<!-- Instructions Section -->
+<h1><img src="fr.webp" alt="Country Flag" class="flag"></h1>
+
 <div class="instructions">
     <h2>Important Instructions:</h2>
     <p>
-        <strong>1. CORRECT STEPS:</strong> All offers must be completed to their full requirements. If the offer requires you to install an app install the app and use it for atleast 3 mins, complete email verification or message verification, and provide accurate and truthful information, make sure to follow through. 
+        <strong>1. CORRECT STEPS:</strong> All offers must be completed to their full requirements. If the offer requires you to install an app install the app and use it for atleast 3 mins, complete email verification or message verification, and provide accurate and truthful information, make sure to follow through.
         <br>
-        <strong>2. PROPER OFFER COMPLETION:</strong> If an offer is not completed properly (e.g., using false data or not completing the verification steps), your balance may be added, but you will not be able to withdraw it. You may also face account suspension or deletion. We take this matter very seriously, and we do not tolerate any attempts to misuse the system.
+        <strong>2. PROPER OFFER COMPLETION:</strong> If an offer is not completed properly, your balance may be added, but you will not be able to withdraw it.
         <br>
-        <strong>3. ADULT CONTENT:</strong> Some offers may involve adult content. Please proceed with caution and only if you are comfortable with it. If you're under 18 or do not wish to participate in adult content, simply avoid those offers. 
+        <strong>3. ADULT CONTENT:</strong> Some offers may involve adult content. Proceed with caution if you are comfortable with it.
         <br>
-        <strong>4. AVOID FRAUD:</strong> Any fraudulent activity, including but not limited to using fake details or multiple accounts, will result in immediate account termination without warning. Please adhere to the rules for a smooth and enjoyable experience.
+        <strong>4. AVOID FRAUD:</strong> Any fraudulent activity will result in immediate termination without warning.
     </p>
 </div>
 
-<!-- Offers Section -->
-<div class="offers-container" id="offersContainer">
-    <!-- Offers will be dynamically inserted here -->
-</div>
+<div class="offers-container" id="offersContainer"></div>
 
-<!-- Pagination Section -->
 <div class="pagination" id="pagination"></div>
-
 
 <footer>
     <p>© 2024 Earnify. All rights reserved.</p>
@@ -326,39 +303,36 @@ const offers = [
     }
 ];
 
-
-
-// Initialize user balance and completed offers (from local storage)
-let userBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
+// Initialize user balance and completed offers (from local storage) 
+let mainBalance = parseFloat(localStorage.getItem('mainBalance')) || 0;
+let pendingBalance = parseFloat(localStorage.getItem('pendingBalance')) || 0;
 let completedOffers = JSON.parse(localStorage.getItem('completedOffers')) || [];
 const offerStatus = JSON.parse(localStorage.getItem('offerStatus')) || [];
 
-// Display initial balance
-document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+// Display initial balances
+document.getElementById('mainBalance').innerText = mainBalance.toFixed(2);
+document.getElementById('pendingBalance').innerText = pendingBalance.toFixed(2);
 
 // Pagination variables
 let currentPage = 1;
 const offersPerPage = 5;
 
-// Function to render offers for the current page
 function renderOffers(page) {
     const offersContainer = document.getElementById('offersContainer');
     const startIndex = (page - 1) * offersPerPage;
     const endIndex = startIndex + offersPerPage;
 
-    // Clear previous offers
     offersContainer.innerHTML = '';
 
-   // Add offers for the current page
-   const offersToDisplay = offers.slice(startIndex, endIndex);
-    offersToDisplay.forEach((offer) => {
+    const offersToDisplay = offers.slice(startIndex, endIndex);
+    offersToDisplay.forEach((offer, index) => {
         const offerCard = document.createElement('div');
         offerCard.className = 'offer';
         offerCard.innerHTML = `
             <h3>${offer.title}</h3>
             <p><strong>Payout:</strong> $${offer.payout.toFixed(2)}</p>
-            <p><strong>Description:</strong> ${offer.description}</p> <!-- Added description -->
-            <button onclick="window.open('${offer.link}', '_blank')">Claim Offer</button>
+            <p><strong>Description:</strong> ${offer.description}</p>
+            <button onclick="claimOffer(${index})">Claim Offer</button>
         `;
         offersContainer.appendChild(offerCard);
     });
@@ -366,24 +340,20 @@ function renderOffers(page) {
     renderPagination(page);
 }
 
-// Function to render pagination buttons
 function renderPagination(page) {
     const pagination = document.getElementById('pagination');
     const totalPages = Math.ceil(offers.length / offersPerPage);
     
     let paginationHTML = '';
-
-    // Previous button
+    
     if (page > 1) {
         paginationHTML += `<button onclick="changePage(${page - 1})">Previous</button>`;
     }
-
-    // Page buttons
+    
     for (let i = 1; i <= totalPages; i++) {
         paginationHTML += `<button onclick="changePage(${i})" ${i === page ? 'style="background-color: red;"' : ''}>${i}</button>`;
     }
-
-    // Next button
+    
     if (page < totalPages) {
         paginationHTML += `<button onclick="changePage(${page + 1})">Next</button>`;
     }
@@ -391,55 +361,53 @@ function renderPagination(page) {
     pagination.innerHTML = paginationHTML;
 }
 
-// Function to change page
 function changePage(page) {
     currentPage = page;
     renderOffers(page);
 }
 
-// Function to claim offer
 function claimOffer(index) {
     const offer = offers[index];
-
-    // Mark offer as started, add timestamp for pending
+    
     offerStatus.push({ index: index, timestamp: Date.now() });
 
-    // Save data to local storage
     localStorage.setItem('offerStatus', JSON.stringify(offerStatus));
 
-    // Temporarily add to balance (pending until verification)
-    userBalance += offer.payout;
-    document.getElementById('userBalance').innerText = userBalance.toFixed(2);
-    localStorage.setItem('userBalance', userBalance.toFixed(2));
+    pendingBalance += offer.payout;
+    localStorage.setItem('pendingBalance', pendingBalance.toFixed(2));
 
-    // Refresh offers
+    document.getElementById('pendingBalance').innerText = pendingBalance.toFixed(2);
+
+    window.open(offer.link, '_blank');
     renderOffers(currentPage);
 }
 
-// Check and verify completed offers after 10 hours
 function verifyOffers() {
     const now = Date.now();
     offerStatus.forEach((status) => {
         if (now - status.timestamp >= 10 * 60 * 60 * 1000 && !completedOffers.includes(status.index)) {
-            // Mark as completed
             completedOffers.push(status.index);
-            userBalance += offers[status.index].payout;
+            const offer = offers[status.index];
+            mainBalance += offer.payout;
+            pendingBalance -= offer.payout;
+
             localStorage.setItem('completedOffers', JSON.stringify(completedOffers));
-            localStorage.setItem('userBalance', userBalance.toFixed(2));
-            document.getElementById('userBalance').innerText = userBalance.toFixed(2);
+            localStorage.setItem('mainBalance', mainBalance.toFixed(2));
+            localStorage.setItem('pendingBalance', pendingBalance.toFixed(2));
+
+            document.getElementById('mainBalance').innerText = mainBalance.toFixed(2);
+            document.getElementById('pendingBalance').innerText = pendingBalance.toFixed(2);
         }
     });
 
-    // Update offer buttons to show "Completed" and disable them
     renderOffers(currentPage);
 }
 
-// Initialize dashboard and start the verification process
+setInterval(verifyOffers, 5 * 60 * 1000);
+
+// Initial render and verification
 renderOffers(currentPage);
 verifyOffers();
-
-// Call verifyOffers every 5 minutes to check for completed offers
-setInterval(verifyOffers, 5 * 60 * 1000);
 </script>
 </body>
 </html>
