@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $referralCode = bin2hex(random_bytes(4)); // Generate unique referral code
+    $referralCode = bin2hex(random_bytes(4)); // Generate a unique referral code
     $referredBy = $_POST['referredBy'] ?? null; // Optional referral code
 
     // Check if email already exists
@@ -32,10 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert user into database
     $stmt = $conn->prepare("INSERT INTO users (name, email, password, referral_code, referred_by) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $name, $email, $password, $referralCode, $referredBy);
+
     if ($stmt->execute()) {
+        // Update referral count for referrer
+        if ($referredBy) {
+            $updateReferrer = $conn->prepare("UPDATE users SET referrals_count = referrals_count + 1 WHERE referral_code = ?");
+            $updateReferrer->bind_param("s", $referredBy);
+            $updateReferrer->execute();
+        }
+
         echo json_encode(["status" => "success", "message" => "Registration successful!", "referralCode" => $referralCode]);
     } else {
         echo json_encode(["status" => "error", "message" => "Failed to register."]);
     }
 }
-?>
+

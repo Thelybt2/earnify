@@ -19,6 +19,7 @@ $user = $_SESSION['user'];
     <h1>Welcome, <?php echo htmlspecialchars($user['name']); ?>!</h1>
     <p>Your referral code: <strong><?php echo htmlspecialchars($user['referral_code']); ?></strong></p>
     <p>Balance: $<?php echo number_format($user['balance'], 2); ?></p>
+    <p>Referrals: <?php echo htmlspecialchars($user['referrals_count']); ?></p>
     <p>Referred By: <?php echo htmlspecialchars($user['referred_by'] ?? 'None'); ?></p>
     <p><a href="logout.php">Logout</a></p>
 </body>
